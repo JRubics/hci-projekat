@@ -1,0 +1,31 @@
+﻿<Window x:Class="WpfApp3.Table.Table"
+        MaxWidth="750"
+        MaxHeight="430"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp3.Table"
+        mc:Ignorable="d"
+        Title="Table" Height="420" Width="740">
+    <Grid>
+        <ListView MouseDoubleClick="openChange" MouseRightButtonUp="OpenDelete" Margin="5" Name="resourceTable" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Oznaka" Width="80" DisplayMemberBinding="{Binding Oznaka, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Ime" Width="120" DisplayMemberBinding="{Binding Ime, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Opis" Width="180" DisplayMemberBinding="{Binding Opis, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Tip" Width="120" DisplayMemberBinding="{Binding Tip, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Frekvencija" Width="120" DisplayMemberBinding="{Binding Frekvencija, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Ikonica" Width="180" DisplayMemberBinding="{Binding Ikonica, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Obnovljivost" Width="80" DisplayMemberBinding="{Binding Obnovljiv, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Eksploatisanje" Width="80" DisplayMemberBinding="{Binding Eksploatisanje, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Strateska vaznost" Width="80" DisplayMemberBinding="{Binding StrateskiVazan, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Mera" Width="80" DisplayMemberBinding="{Binding Mera, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Cena" Width="150" DisplayMemberBinding="{Binding Cena, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Datum" Width="200" DisplayMemberBinding="{Binding Datum, UpdateSourceTrigger=PropertyChanged}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
