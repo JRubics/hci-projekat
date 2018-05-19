@@ -17,6 +17,7 @@
         </Style>
         <Style x:Key="NewResTextBoxStyle" TargetType="TextBox">
             <Setter Property="FontSize" Value="18"/>
+            <Setter Property="MaxLength" Value="50"/>
         </Style>
         <Style x:Key="NewResTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
@@ -129,15 +130,27 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Width="120" HorizontalAlignment="Left" Content="Obnovljivost" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
-                    <CheckBox IsChecked="{Binding Path=Obnovljiv}" VerticalAlignment="Center" FontSize="22"/>
+                    <CheckBox IsChecked="{Binding Path=Obnovljiv}" VerticalAlignment="Center" FontSize="22">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Width="120" HorizontalAlignment="Left" Content="Strateska vaznost" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
-                    <CheckBox IsChecked="{Binding Path=StrateskiVazan}" VerticalAlignment="Center" />
+                    <CheckBox IsChecked="{Binding Path=StrateskiVazan}" VerticalAlignment="Center">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Width="120" HorizontalAlignment="Left" Content="Eksploatacija" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
-                    <CheckBox IsChecked="{Binding Path=Eksploatisanje}" VerticalAlignment="Center" />
+                    <CheckBox IsChecked="{Binding Path=Eksploatisanje}" VerticalAlignment="Center" >
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label  Width="100" HorizontalAlignment="Left" Content="Mera" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
@@ -179,11 +192,25 @@
                     </TextBox>
                 </Grid>
                 <StackPanel>
-                    <DatePicker  SelectedDate="{Binding Path=Datum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="20,20,20,80" VerticalAlignment="Top"/>
+                    <DatePicker  SelectedDate="{Binding Path=Datum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="20,20,20,20" VerticalAlignment="Top"/>
                     <!--SelectedDateChanged="DatePicker_SelectedDateChanged"/-->
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <Button Content="Potvrdi" Width="75" Height="30" Click="Button_Click" HorizontalAlignment="Center" Style="{StaticResource ResourceKey=NewResButtonStyle}"/>
+                    <Label FontSize="18" FontWeight="Bold" HorizontalAlignment="Center">Etikete:</Label>
+                    <ItemsControl ItemsSource="{Binding Path=items}" HorizontalAlignment="Center"  Margin="5,5,5,20">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Foreground="{Binding Path = TipBackground}" Margin="15,15,15,15" Content="{Binding TipOzn}" IsChecked="{Binding Path=IsChacked}">
+                                    <CheckBox.LayoutTransform>
+                                        <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                    </CheckBox.LayoutTransform>
+                                </CheckBox>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <Button Content="Potvrdi" Width="75" Height="30" Margin="0,0,0,20" Click="Button_Click" HorizontalAlignment="Center" Style="{StaticResource ResourceKey=NewResButtonStyle}"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

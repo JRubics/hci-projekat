@@ -37,6 +37,8 @@ namespace WpfApp3
         private static Panel pom = null;
         public MainWindow()
         {
+            var s = new login.Window1( );
+            s.ShowDialog( );
             InitializeComponent( );
             this.DataContext = this;
             //Test1 = "AFRIKA";
@@ -232,6 +234,7 @@ namespace WpfApp3
             resources.serialize( );
             typesc.serialize( );
             tags.serialize( );
+            System.Windows.Application.Current.Shutdown( );
         }
 
         private void Window_Initialized(object sender, EventArgs e)

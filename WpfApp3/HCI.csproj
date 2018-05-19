@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="login\login.xaml.cs">
+      <DependentUpon>login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewResource\StringToDoubleValidationRule.cs" />
     <Compile Include="NewResource\ValidationMustBeFilled.cs" />
     <Compile Include="NewTag\NewTag.xaml.cs">
@@ -75,6 +78,10 @@
     <Compile Include="TypeTable\TypeTable.xaml.cs">
       <DependentUpon>TypeTable.xaml</DependentUpon>
     </Compile>
+    <Page Include="login\login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

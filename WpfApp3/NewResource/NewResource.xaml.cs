@@ -26,6 +26,8 @@ namespace WpfApp3.NewResource
         public ObservableCollection<string> TipoviCombo { get; set; }
         public ObservableCollection<string> FrekvCombo { get; set; }
         public ObservableCollection<string> MeraCombo { get; set; }
+        public ObservableCollection<Item> items { get; set; }
+
         public String s = "";//mode pozivanja button click-a
         public bool Oznakaenabled = true;
         public NewResource(Res r,String a) {
@@ -89,6 +91,18 @@ namespace WpfApp3.NewResource
 
             Cena = r.cena;
             Datum = r.datum;
+            items = new ObservableCollection<Item>( );
+            for (int i = 0; i < MainWindow.Tags.Len( ); i++) {
+                Item it = new Item(MainWindow.Tags.GetTagAtI(i).oznaka, MainWindow.Tags.GetTagAtI(i).boja, MainWindow.Tags.GetTagAtI(i).opis);
+
+                for(int j = 0; j < r.etikete.Count; j++) {
+                    if (r.etikete.ElementAt(j).oznaka == it.TipOzn) {
+                        it.IsChacked = true;
+                        break;
+                    }
+                }
+                items.Add(it);
+            }
         }
 
         public NewResource()
@@ -141,7 +155,38 @@ namespace WpfApp3.NewResource
 
             Cena = 0;
             Datum = DateTime.Now;
+
+            items = new ObservableCollection<Item>();
+            for (int i = 0; i < MainWindow.Tags.Len(); i++) {
+                items.Add(new Item(MainWindow.Tags.GetTagAtI(i).oznaka, MainWindow.Tags.GetTagAtI(i).boja, MainWindow.Tags.GetTagAtI(i).opis));
+            }
+
         }
+
+        public class Item
+        {
+            public string TipOzn { get; set; }
+            public string TipBoja { get; set; }
+            public string TipBackground { get; set; }
+            public string TipOpis { get; set; }
+            public bool IsChacked { get; set; }
+            public Item(string t, string b,string o) {
+                TipOzn = t;
+                TipBoja = b;
+                TipOpis = o;
+                IsChacked = false;
+                if (TipBoja == "crvena") {
+                    TipBackground = "Red";
+                }else if (TipBoja == "zelena") {
+                    TipBackground = "Green";
+                }else if (TipBoja == "plava") {
+                    TipBackground = "Blue";
+                } else if (TipBoja == "žuta") {
+                    TipBackground = "Yellow";
+                }
+            }
+        }
+
 
         #region NotifyProperties
         private string _test1;
@@ -157,6 +202,45 @@ namespace WpfApp3.NewResource
                 {
                     _test1 = value;
                     OnPropertyChanged("Test1");
+                }
+            }
+        }
+
+        private string _tipozn;
+        public string TipOzn {
+            get {
+                return _tipozn;
+            }
+            set {
+                if (value != _tipozn) {
+                    _tipozn = value;
+                    OnPropertyChanged("TipOzn");
+                }
+            }
+        }
+
+        private string _tipboja;
+        public string TipBoja {
+            get {
+                return _tipboja;
+            }
+            set {
+                if (value != _tipboja) {
+                    _tipboja = value;
+                    OnPropertyChanged("TipBoja");
+                }
+            }
+        }
+
+        private string _tipopis;
+        public string TipOpis {
+            get {
+                return _tipopis;
+            }
+            set {
+                if (value != _tipopis) {
+                    _tipopis = value;
+                    OnPropertyChanged("TipOpis");
                 }
             }
         }
@@ -376,6 +460,19 @@ namespace WpfApp3.NewResource
                 }
             }
         }
+
+        private bool _ischacked;
+        public bool IsChacked {
+            get {
+                return _ischacked;
+            }
+            set {
+                if (value != _ischacked) {
+                    _ischacked = value;
+                    OnPropertyChanged("IsChacked");
+                }
+            }
+        }
         #endregion
 
         #region PropertyChangedNotifier
@@ -433,6 +530,12 @@ namespace WpfApp3.NewResource
             String TipImg = MainWindow.Typesc.GetTypeById(Tip).ikonica;
             //TipImg = Tip;
             Res r = new Res(Oznaka, Ime,Opis, Tip, TipImg, Frekvencija,Ikonica, Obnovljiv, StrateskiVazan, Eksploatisanje, Mera, Cena, Datum);
+            r.etikete.Clear( );
+            for (int i = 0; i < items.Count; i++) {
+                if (items[i].IsChacked) {
+                    r.etikete.Add(MainWindow.Tags.GetTagAtI(i));
+                }
+            }
             if (s.StartsWith("b") || s.StartsWith("B")) {
                 for (int i = 0; i < MainWindow.Resources.Len( ); i++) {
                     if (MainWindow.Resources.GetResourceAtI(i).oznaka == r.oznaka) {
@@ -448,6 +551,7 @@ namespace WpfApp3.NewResource
                         MainWindow.Resources.GetResourceAtI(i).mera = r.mera;
                         MainWindow.Resources.GetResourceAtI(i).cena = r.cena;
                         MainWindow.Resources.GetResourceAtI(i).datum = r.datum;
+                        MainWindow.Resources.GetResourceAtI(i).etikete = r.etikete;
                         break;
                     }
                 }
@@ -491,6 +595,7 @@ namespace WpfApp3.NewResource
                         MainWindow.Resources.GetResourceAtI(i).mera = r.mera;
                         MainWindow.Resources.GetResourceAtI(i).cena = r.cena;
                         MainWindow.Resources.GetResourceAtI(i).datum = r.datum;
+                        MainWindow.Resources.GetResourceAtI(i).etikete = r.etikete;
                         break;
                     }
                 }
@@ -517,8 +622,9 @@ namespace WpfApp3.NewResource
                 }
                 this.Close( );
             } else {
+                //items = (List<Tag>)lbTodoList.Items( ); ne updatuje se
+
                 MainWindow.Resources.addResource(r);
-                //Test1 = MainWindow.Resources.ToString;
                 MakeBtn(r);
             }
         }

@@ -16,6 +16,10 @@ namespace WpfApp3
     {
         public static ObservableCollection<Res> res;
 
+        public void AddTag(Tag t, int i) {
+            res.ElementAt(i).etikete.Add(t);
+        }
+
         public ResourceContainer()
         {
             res = new ObservableCollection<Res>();

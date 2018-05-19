@@ -22,8 +22,11 @@ namespace WpfApp3
         public String mera;
         public Double cena;
         public DateTime datum;
+        public List<Tag> etikete;
 
-        public Res() { }
+        public Res() {
+            etikete = new List<Tag>( );
+        }
 
         public Res(string oznaka, string ime, string opis, string tip, string tipImg, string frekvencija, string ikonica, bool obnovljiv, bool strateskiVazan, bool eksploatisanje, string mera, double cena, DateTime datum)
         {
@@ -40,6 +43,7 @@ namespace WpfApp3
             this.mera = mera;
             this.cena = cena;
             this.datum = datum;
+            etikete = new List<Tag>( );
         }
     }
 }
