@@ -129,7 +129,7 @@
                     <ComboBox FontSize="16" ItemsSource="{Binding Path=FrekvCombo}" SelectedItem="{Binding Path=Frekvencija}" Height="30" Width="120"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Width="120" HorizontalAlignment="Left" Content="Obnovljivost" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
+                    <Label Width="160" HorizontalAlignment="Left" Content="Obnovljivost" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
                     <CheckBox IsChecked="{Binding Path=Obnovljiv}" VerticalAlignment="Center" FontSize="22">
                         <CheckBox.LayoutTransform>
                             <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
@@ -137,7 +137,7 @@
                     </CheckBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Width="120" HorizontalAlignment="Left" Content="Strateska vaznost" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
+                    <Label Width="160" HorizontalAlignment="Left" Content="Strateska vaznost" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
                     <CheckBox IsChecked="{Binding Path=StrateskiVazan}" VerticalAlignment="Center">
                         <CheckBox.LayoutTransform>
                             <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
@@ -145,7 +145,7 @@
                     </CheckBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Width="120" HorizontalAlignment="Left" Content="Eksploatacija" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
+                    <Label Width="160" HorizontalAlignment="Left" Content="Eksploatacija" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
                     <CheckBox IsChecked="{Binding Path=Eksploatisanje}" VerticalAlignment="Center" >
                         <CheckBox.LayoutTransform>
                             <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
@@ -168,7 +168,7 @@
                     <Label Grid.Column="0" Grid.Row="0" Margin="20,20,50,0" Content="Cena u $" Style="{StaticResource ResourceKey=NewResStyle}"/>
                     <TextBox Width="80" Grid.Column="1" Grid.Row="0" Margin="0,20,220,0" Style="{StaticResource ResourceKey=NewResTextBoxStyle}">
                         <TextBox.Text>
-                            <Binding Path="Cena" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Cena" UpdateSourceTrigger="PropertyChanged" StringFormat="N2">
                                 <Binding.ValidationRules>
                                     <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
                                 </Binding.ValidationRules>
@@ -200,7 +200,7 @@
                     <ItemsControl ItemsSource="{Binding Path=items}" HorizontalAlignment="Center"  Margin="5,5,5,20">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox Foreground="{Binding Path = TipBackground}" Margin="15,15,15,15" Content="{Binding TipOzn}" IsChecked="{Binding Path=IsChacked}">
+                                <CheckBox Foreground="{Binding Path = TipBackground}" FontWeight="Bold" Margin="15,15,15,15" Content="{Binding TipOzn}" IsChecked="{Binding Path=IsChacked}">
                                     <CheckBox.LayoutTransform>
                                         <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                                     </CheckBox.LayoutTransform>

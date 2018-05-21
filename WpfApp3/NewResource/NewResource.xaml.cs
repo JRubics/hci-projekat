@@ -665,6 +665,12 @@ namespace WpfApp3.NewResource
             win.ResourcePanel.Children.Add(newBtn);
 
             newBtn.MouseDoubleClick += MainWindow.ButtonClick1;
+
+            ToolTip t = new ToolTip( );
+            t.Content = r.oznaka;
+            t.FontSize = 22;
+            newBtn.ToolTip = t;
+
             this.Close( );
         }
 

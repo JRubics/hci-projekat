@@ -24,7 +24,7 @@ namespace WpfApp3.login
         {
             InitializeComponent( );
             this.DataContext = this;
-
+            IsEnabled = false;
 
         }
 
@@ -49,6 +49,19 @@ namespace WpfApp3.login
             }
         }
 
+        private Boolean _isenabled;
+        public Boolean IsEnabled {
+            get {
+                return _isenabled;
+            }
+            set {
+                if (value != _isenabled) {
+                    _isenabled = value;
+                    OnPropertyChanged("IsEnabled");
+                }
+            }
+        }
+
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             System.Windows.Application.Current.Shutdown( );
@@ -58,6 +71,45 @@ namespace WpfApp3.login
         {
             if (passwordBox.Password == "admin" && User == "admin") {
                 this.Hide( );
+            } else {
+                Thickness myThickness = new Thickness(2,2,2,2);
+
+                uname.BorderBrush = Brushes.Red;
+                uname.BorderThickness = myThickness;
+
+                //uname.prope += new PropertyChangedEventHandler(uname_changed);
+
+                passwordBox.BorderBrush = Brushes.Red;
+                passwordBox.BorderThickness = myThickness;
+
+                INotifyPropertyChanged person = DataContext as INotifyPropertyChanged;
+                if (person != null)
+                    person.PropertyChanged += new PropertyChangedEventHandler(uname_changed);
+            }
+
+            
+        }
+        void uname_changed(object sender, PropertyChangedEventArgs e)
+        {
+            validate( );
+        }
+
+        void PasswordChangedHandler(Object sender, RoutedEventArgs args)
+        {
+            validate( );
+        }
+
+        void validate() {
+            Thickness myThickness = new Thickness(1, 1, 1, 1);
+
+            uname.BorderBrush = Brushes.Black;
+            uname.BorderThickness = myThickness;
+
+            passwordBox.BorderBrush = Brushes.Black;
+            passwordBox.BorderThickness = myThickness;
+
+            if (User != "" && passwordBox.Password != "") {
+                b.IsEnabled = true;
             }
         }
     }

@@ -7,9 +7,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3.Table"
         mc:Ignorable="d"
-        Title="Table" Height="420" Width="740">
+        Title="Table" Height="420" Width="740" Closing="Window_Closing">
+    <Window.Resources>
+        <Style x:Key="NewResStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+        <Style x:Key="NewResButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style x:Key="NewResTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="MaxLength" Value="50"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <ListView MouseDoubleClick="openChange" MouseRightButtonUp="OpenDelete" Margin="5" Name="resourceTable" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="0" MouseDoubleClick="openChange" MouseRightButtonUp="OpenDelete" Margin="5" Name="resourceTable" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Oznaka" Width="80" DisplayMemberBinding="{Binding Oznaka, UpdateSourceTrigger=PropertyChanged}" />
@@ -27,5 +48,17 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button FontSize="20" FontWeight="Medium" Content="Pretraga" HorizontalAlignment="Left" Margin="600,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118" Click="Button_Click" Height="37"/>
+        <Button Content="Cela tabela" FontSize="20" HorizontalAlignment="Left" Margin="600,40,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118" Click="Button_Full"/>
+
+        <Label Content="Ime" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
+        <TextBox HorizontalAlignment="Left" Height="33" Margin="55,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Ime, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="140" Style="{StaticResource ResourceKey=NewResTextBoxStyle}"/>
+
+        <Label Content="Oznaka" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
+        <TextBox HorizontalAlignment="Left" Height="33" Margin="85,50,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Oznaka, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="110" Style="{StaticResource ResourceKey=NewResTextBoxStyle}" RenderTransformOrigin="1.289,0.383"/>
+
+
+        <Label Content="Tip" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,10,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
+        <ComboBox FontSize="18" Margin="280,10,324.6,86.4" ItemsSource="{Binding Path=TipoviCombo}" SelectedItem="{Binding Path=Tip}" RenderTransformOrigin="-1.062,5.363" Grid.Row="1"/>
     </Grid>
 </Window>

@@ -14,10 +14,13 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Xml;
 using System.Xml.Serialization;
 using WpfApp3.NewResource;
 
@@ -26,10 +29,12 @@ namespace WpfApp3
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-
+    [Serializable]
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public Grid grid = null;
+        public Canvas canvas = null;
+        public Button movingButton = null;
         private static ResourceContainer resources = new ResourceContainer( );
         private static TypeContainer typesc = new TypeContainer( );
         private static TagContainer tags = new TagContainer( );
@@ -37,8 +42,8 @@ namespace WpfApp3
         private static Panel pom = null;
         public MainWindow()
         {
-            var s = new login.Window1( );
-            s.ShowDialog( );
+            //var s = new login.Window1( );
+            //s.ShowDialog( );
             InitializeComponent( );
             this.DataContext = this;
             //Test1 = "AFRIKA";
@@ -66,10 +71,26 @@ namespace WpfApp3
                 newBtn.MouseDoubleClick += ButtonClick1;
                 newBtn.MouseRightButtonUp += ButtonClickDelete;
 
+                ToolTip t = new ToolTip();
+                t.Content = resources.GetResourceAtI(i).oznaka;
+                t.FontSize = 22;
+                newBtn.ToolTip = t;
                 ResourcePanel.Children.Add(newBtn);
             }
             pom = ResourcePanel;
         }
+
+        /*public static void TooltipShow(object sender, RoutedEventArgs e) {
+            ToolTip tooltip = new ToolTip { Content = (sender as Button).Name.Substring(1) };
+            tooltip.FontSize = 20;
+            (sender as Button).ToolTip = tooltip;
+            tooltip.IsOpen = true;
+        }
+
+        public static void TooltipHide(object sender, RoutedEventArgs e)
+        {
+            (sender as Button).ClearValue(Button.ToolTipProperty);
+        }*/
 
         public static void ButtonClickDelete(object sender, RoutedEventArgs e)
         {
@@ -190,43 +211,134 @@ namespace WpfApp3
         {
             WorldGrid.Visibility = Visibility.Collapsed;
             AfricaGrid.Visibility = Visibility.Visible;
-            grid = AfricaGrid;
+            canvas = AfricaGrid;
+
+            Canvas c = this.deserialize_canvas("AfricaGrid.txt");
+            if (c == null) {
+                return;
+            }
+            List<UIElement> elements = new List<UIElement>( );
+            foreach (var v in c.Children) {
+                elements.Add((UIElement)v);
+            }
+            foreach (UIElement el in elements) {
+                if ((el is Image)) {
+                    c.Children.Remove(el);
+                    canvas.Children.Add(el);
+                }
+            }
         }
         private void Button_Europe(object sender, RoutedEventArgs e)
         {
             WorldGrid.Visibility = Visibility.Collapsed;
             EuropeGrid.Visibility = Visibility.Visible;
-            grid = EuropeGrid;
+            canvas = EuropeGrid;
+
+            Canvas c = this.deserialize_canvas("EuropeGrid.txt");
+            if (c == null) {
+                return;
+            }
+            List<UIElement> elements = new List<UIElement>( );
+            foreach (var v in c.Children) {
+                elements.Add((UIElement)v);
+            }
+            foreach (UIElement el in elements) {
+                if ((el is Image)) {
+                    c.Children.Remove(el);
+                    canvas.Children.Add(el);
+                }
+            }
         }
         private void Button_N_America(object sender, RoutedEventArgs e)
         {
             WorldGrid.Visibility = Visibility.Collapsed;
             NAmericaGrid.Visibility = Visibility.Visible;
-            grid = NAmericaGrid;
+            canvas = NAmericaGrid;
+
+            Canvas c = this.deserialize_canvas("NAmericaGrid.txt");
+            if (c == null) {
+                return;
+            }
+            List<UIElement> elements = new List<UIElement>( );
+            foreach (var v in c.Children) {
+                elements.Add((UIElement)v);
+            }
+            foreach (UIElement el in elements) {
+                if ((el is Image)) {
+                    c.Children.Remove(el);
+                    canvas.Children.Add(el);
+                }
+            }
         }
         private void Button_S_America(object sender, RoutedEventArgs e)
         {
             WorldGrid.Visibility = Visibility.Collapsed;
             SAmericaGrid.Visibility = Visibility.Visible;
-            grid = SAmericaGrid;
+            canvas = SAmericaGrid;
+
+            Canvas c = this.deserialize_canvas("SAmericaGrid.txt");
+            if (c == null) {
+                return;
+            }
+            List<UIElement> elements = new List<UIElement>( );
+            foreach (var v in c.Children) {
+                elements.Add((UIElement)v);
+            }
+            foreach (UIElement el in elements) {
+                if ((el is Image)) {
+                    c.Children.Remove(el);
+                    canvas.Children.Add(el);
+                }
+            }
         }
         private void Button_Asia(object sender, RoutedEventArgs e)
         {
             WorldGrid.Visibility = Visibility.Collapsed;
             AsiaGrid.Visibility = Visibility.Visible;
-            grid = AsiaGrid;
+            canvas = AsiaGrid;
+
+            Canvas c = this.deserialize_canvas("AsiaGrid.txt");
+            if (c == null) {
+                return;
+            }
+            List<UIElement> elements = new List<UIElement>( );
+            foreach (var v in c.Children) {
+                elements.Add((UIElement)v);
+            }
+            foreach (UIElement el in elements) {
+                if ((el is Image)) {
+                    c.Children.Remove(el);
+                    canvas.Children.Add(el);
+                }
+            }
         }
         private void Button_Oceania(object sender, RoutedEventArgs e)
         {
             WorldGrid.Visibility = Visibility.Collapsed;
             OceaniaGrid.Visibility = Visibility.Visible;
-            grid = OceaniaGrid;
+            canvas = OceaniaGrid;
+
+            Canvas c = this.deserialize_canvas("OceaniaGrid.txt");
+            if (c == null) {
+                return;
+            }
+            List<UIElement> elements = new List<UIElement>( );
+            foreach (var v in c.Children) {
+                elements.Add((UIElement)v);
+            }
+            foreach (UIElement el in elements) {
+                if ((el is Image)) {
+                    c.Children.Remove(el);
+                    canvas.Children.Add(el);
+                }
+            }
         }
 
         private void Button_Back(object sender, RoutedEventArgs e)
         {
-            grid.Visibility = Visibility.Collapsed;
+            canvas.Visibility = Visibility.Collapsed;
             WorldGrid.Visibility = Visibility.Visible;
+            serialize_canvas(canvas);
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -237,12 +349,33 @@ namespace WpfApp3
             System.Windows.Application.Current.Shutdown( );
         }
 
+        private void serialize_canvas(Canvas c)
+        {
+            string save = XamlWriter.Save(c);
+
+            using (StreamWriter outputFile = new StreamWriter(c.Name+".txt")) {
+                    outputFile.Write(save);
+            }
+        }
+
         private void Window_Initialized(object sender, EventArgs e)
         {
             resources.deserialize( );
             typesc.deserialize( );
             tags.deserialize( );
-            //Test1 = resources.ToString;
+        }
+
+        private Canvas deserialize_canvas(String path)
+        {
+            if (File.Exists(path)) {
+                string readText = File.ReadAllText(path);
+
+                StringReader stringReader = new StringReader(readText);
+                XmlReader xmlReader = XmlReader.Create(stringReader);
+                Canvas c = (Canvas)XamlReader.Load(xmlReader);
+                return c;
+            }
+            return null;
         }
 
         private void Button_Meni(object sender, RoutedEventArgs e)
@@ -269,6 +402,204 @@ namespace WpfApp3
             var mouseWasDownOn = e.Source as FrameworkElement;
             mouseWasDownOn.ContextMenu = cm;
             cm.IsOpen = true;
+        }
+
+        //DRAG AND DROP
+
+        public Point startPoint;
+        private void Resource_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(null);
+        }
+
+        private void Resource_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            Point mousePos = e.GetPosition(null);
+            foreach (Button b in ResourcePanel.Children) {
+                //nalazi na kojem dugmetu se desio event
+                if (mousePos.X >= b.TransformToAncestor(Application.Current.MainWindow).Transform(new Point(0, 0)).X &&
+                    mousePos.X <= b.TransformToAncestor(Application.Current.MainWindow).Transform(new Point(0, 0)).X + 50 &&
+                    mousePos.Y >= b.TransformToAncestor(Application.Current.MainWindow).Transform(new Point(0, 0)).Y &&
+                    mousePos.Y <= b.TransformToAncestor(Application.Current.MainWindow).Transform(new Point(0, 0)).Y + 50
+                    ) {
+                    if (e.LeftButton == MouseButtonState.Pressed) {
+                        DataObject dragData = new DataObject("myFormat", b);
+                        DragDrop.DoDragDrop(b, dragData, DragDropEffects.Move);
+
+                        movingButton = b;
+                    }
+                }
+            }
+        }
+         private static T FindAncestor<T>(DependencyObject current)
+                 where T : DependencyObject
+         {
+             do {
+                 if (current is T) {
+                     return (T)current;
+                 }
+                 current = VisualTreeHelper.GetParent(current);
+             }
+             while (current != null);
+             return null;
+         }
+
+        private void Image_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("myFormat") || sender == e.Source) {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void Image_Drop(object sender, DragEventArgs e)
+        {
+            foreach (UIElement c in canvas.Children) {
+                //stavi da se ne preklapaju
+            }
+            if (e.Data.GetDataPresent("myFormat")) {
+                if (e.Data.GetData("myFormat") is Button) {
+                    Button b = e.Data.GetData("myFormat") as Button;
+                    Res r;
+
+                    for (int i = 0; i < resources.Len( ); i++) {
+                        String pom = (b.Name).Substring(1);
+                        if (pom == resources.GetResourceAtI(i).oznaka) {
+                            r = resources.GetResourceAtI(i);
+                            r.position = e.GetPosition(canvas);
+
+                            Image img = new Image( );
+                            try {
+                                img.Source = new BitmapImage(new Uri(uriString: @r.ikonica));
+                            } catch {
+                                try {
+                                    img.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, r.tipImg)));
+                                } catch {
+                                    img.Source = new BitmapImage(new Uri(@"../../resources/image.png", UriKind.Relative));
+                                }
+                            }
+
+                            img.AllowDrop = false;
+                            img.Width = 40;
+                            img.Height = 40;
+
+                            Canvas.SetTop(img, r.position.Y);
+                            Canvas.SetLeft(img, r.position.X);
+                            canvas.Children.Add(img);
+
+                            Action emptyDelegate = delegate { };
+                            canvas.Dispatcher.Invoke(emptyDelegate, DispatcherPriority.Render);
+                        }
+                    }
+                } else if (e.Data.GetData("myFormat") is Image && (e.Data.GetData("myFormat") as Image).ActualHeight <= 100) {
+                    Image img = e.Data.GetData("myFormat") as Image;
+                    canvas.Children.Remove(img);
+                    
+
+                    Point p = e.GetPosition(canvas);
+                    Canvas.SetTop(img, p.Y);
+                    Canvas.SetLeft(img, p.X);
+                    canvas.Children.Add(img);
+                }
+            }
+        }
+
+        private void ehDrop(object sender, DragEventArgs e)
+        {
+            throw new NotImplementedException( );
+        }
+
+        private void Canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+             startPoint = e.GetPosition(null);
+        }
+
+        private void Canvas_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            Point mousePos = e.GetPosition(canvas);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+            (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+            Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)) {
+                UIElement uIElement = (UIElement)e.OriginalSource;
+                double top1 = Canvas.GetTop(uIElement);
+                double left1 = Canvas.GetLeft(uIElement);
+
+                if (uIElement is Image ) {
+                    if((uIElement as Image).ActualHeight <= 100){
+                        DataObject dragData = new DataObject("myFormat", uIElement);
+                        DragDrop.DoDragDrop(uIElement, dragData, DragDropEffects.Move);
+
+                        //delete double el
+                        UIElement el = null;
+                        foreach (UIElement c in canvas.Children) {
+                            if (c is Image && (double)c.GetValue(Canvas.TopProperty) == top1 && (double)c.GetValue(Canvas.LeftProperty) == left1) {
+                                el = c;
+                            }
+                        }
+                        canvas.Children.Remove(el);
+                    }
+                }
+            }
+        }
+
+        private void Button_Clear(object sender, RoutedEventArgs e)
+        {
+            List<UIElement> elements = new List<UIElement>( );
+            foreach (var v in canvas.Children) {
+                elements.Add((UIElement)v);
+            }
+            foreach (UIElement el in elements) {
+                if (el is Image) {
+                    canvas.Children.Remove(el);
+                }
+            }
+            if (canvas.Name.Equals("AfricaGrid")) {
+                Image img = new Image( );
+                img.Source = new BitmapImage(new Uri(@"../../resources/africa.png", UriKind.Relative));
+                Canvas.SetTop(img, 0);
+                Canvas.SetLeft(img, 150);
+                canvas.Children.Add(img);
+            }else if (canvas.Name.Equals("EuropeGrid")) {
+                Image img = new Image( );
+                img.Source = new BitmapImage(new Uri(@"../../resources/europe.png", UriKind.Relative));
+                Canvas.SetTop(img, 10);
+                Canvas.SetLeft(img, 130);
+                canvas.Children.Add(img);
+            } else if (canvas.Name.Equals("NAmericaGrid")) {
+                Image img = new Image( );
+                img.Source = new BitmapImage(new Uri(@"../../resources/north_america.png", UriKind.Relative));
+                Canvas.SetTop(img, 10);
+                Canvas.SetLeft(img, 135);
+                canvas.Children.Add(img);
+            } else if (canvas.Name.Equals("SAmericaGrid")) {
+                Image img = new Image( );
+                img.Source = new BitmapImage(new Uri(@"../../resources/south_america.png", UriKind.Relative));
+                Canvas.SetTop(img, 0);
+                Canvas.SetLeft(img, 150);
+                canvas.Children.Add(img);
+            } else if (canvas.Name.Equals("AsiaGrid")) {
+                Image img = new Image( );
+                img.Source = new BitmapImage(new Uri(@"../../resources/asia.png", UriKind.Relative));
+                Canvas.SetTop(img, 0);
+                Canvas.SetLeft(img, 150);
+                canvas.Children.Add(img);
+            } else if (canvas.Name.Equals("OceaniaGrid")) {
+                Image img = new Image( );
+                img.Source = new BitmapImage(new Uri(@"../../resources/oceania.png", UriKind.Relative));
+                Canvas.SetTop(img, 0);
+                Canvas.SetLeft(img, 150);
+                canvas.Children.Add(img);
+            }
+
+        }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1) {
+                //help
+                System.Diagnostics.Process.Start("help.html");
+            }
         }
     }
 }

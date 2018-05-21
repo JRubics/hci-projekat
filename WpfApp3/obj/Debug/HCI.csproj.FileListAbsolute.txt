@@ -30,6 +30,7 @@ C:\Users\1040 G3\source\repos\WpfApp3\WpfApp3\obj\Debug\HCI.csprojResolveAssembl
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\bin\Debug\WpfApp3.exe.config
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\bin\Debug\WpfApp3.exe
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\bin\Debug\WpfApp3.pdb
+C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\HCI.csprojResolveAssemblyReference.cache
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\WhistlerBlue\Theme.baml
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\login\login.g.cs
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\MainWindow.g.cs

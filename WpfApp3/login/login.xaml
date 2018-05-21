@@ -23,9 +23,9 @@
         <Label Grid.Row="1" FontSize="18" Grid.ColumnSpan="2" Margin="10,10,0.4,4.8">Korisničko ime:</Label>
         <Label Grid.Column="1" Grid.Row="2" FontSize="20" Margin="10.2,3.2,0.4,9.6">Lozinka:</Label>
 
-        <TextBox FontSize="18" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="97.2,10,33.6,9.8" Text="{Binding Path=User, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        <PasswordBox FontSize="24"  Grid.Column="1" Grid.Row="2" PasswordChar="*" Grid.ColumnSpan="3" Margin="97.2,10.2,33.6,9.6" MaxLength="20" x:Name="passwordBox"/>
+        <TextBox x:Name="uname" FontSize="18" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="97.2,10,33.6,9.8" Text="{Binding Path=User, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <PasswordBox PasswordChanged="PasswordChangedHandler"  FontSize="24"  Grid.Column="1" Grid.Row="2" PasswordChar="*" Grid.ColumnSpan="3" Margin="97.2,10.2,33.6,9.6" MaxLength="20" x:Name="passwordBox"/>
 
-        <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="40.2,0.4,43.8,10.4" Grid.RowSpan="2" FontSize="20" FontWeight="Medium" Click="Button_Click">POTVRDI</Button>
+        <Button IsEnabled="false" x:Name="b" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="40.2,0.4,43.8,10.4" Grid.RowSpan="2" FontSize="20" FontWeight="Medium" Click="Button_Click">POTVRDI</Button>
     </Grid>
 </Window>

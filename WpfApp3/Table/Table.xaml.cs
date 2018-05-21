@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,7 @@ namespace WpfApp3.Table
     /// </summary>
     public partial class Table : Window, INotifyPropertyChanged
     {
+        public ObservableCollection<string> TipoviCombo { get; set; }
         public static Res deleteResource = null;
         public Table()
         {
@@ -42,6 +44,35 @@ namespace WpfApp3.Table
             }
             Resursi = new ObservableCollection<Res>(l);
             resourceTable.ItemsSource = Resursi;
+
+            Ime = "";
+            Oznaka = "";
+
+            TipoviCombo = new ObservableCollection<string>( );
+            TipoviCombo.Add("");
+            for (int i = 0; i < MainWindow.Typesc.Len( ); i++) {
+                TipoviCombo.Add(MainWindow.Typesc.GetTypeAtI(i).oznaka);
+            }
+            Tip = TipoviCombo.First( );
+        }
+
+        public Table(List<Res> l)
+        {
+
+            InitializeComponent( );
+            this.DataContext = this;
+           
+            Resursi = new ObservableCollection<Res>(l);
+            resourceTable.ItemsSource = Resursi;
+            Ime = "";
+            Oznaka = "";
+
+            TipoviCombo = new ObservableCollection<string>( );
+            TipoviCombo.Add("");
+            for (int i = 0; i < MainWindow.Typesc.Len( ); i++) {
+                TipoviCombo.Add(MainWindow.Typesc.GetTypeAtI(i).oznaka);
+            }
+            Tip = TipoviCombo.First( );
         }
 
         private void OpenDelete(object sender, RoutedEventArgs e)
@@ -85,6 +116,7 @@ namespace WpfApp3.Table
 
         private void openChange(object sender, RoutedEventArgs e)
         {
+            //List<Res> l = new List<Res>( );
             var item = (sender as ListView).SelectedItem;
             if (item != null) {
                 int i = 0;
@@ -150,6 +182,19 @@ namespace WpfApp3.Table
             }
         }
 
+        private string _tip;
+        public string Tip {
+            get {
+                return _tip;
+            }
+            set {
+                if (value != _tip) {
+                    _tip = value;
+                    OnPropertyChanged("Tip");
+                }
+            }
+        }
+
         private string _test1;
         public string Test1 {
             get {
@@ -164,5 +209,68 @@ namespace WpfApp3.Table
         }
         #endregion
 
+        private string _ime;
+        public string Ime {
+            get {
+                return _ime;
+            }
+            set {
+                if (value != _ime) {
+                    _ime = value;
+                    OnPropertyChanged("Ime");
+                }
+            }
+        }
+        private string _oznaka;
+        public string Oznaka {
+            get {
+                return _oznaka;
+            }
+            set {
+                if (value != _oznaka) {
+                    _oznaka = value;
+                    OnPropertyChanged("Oznaka");
+                }
+            }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            //System.Windows.Application.Current.Shutdown( );
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            List<Res> l = new List<Res>( );
+            for (int i = 0; i < MainWindow.Resources.Len( ); i++) {
+                WpfApp3.Res r = MainWindow.Resources.GetResourceAtI(i);
+
+                String ek = r.eksploatisanje ? "DA" : "NE";
+                String o = r.obnovljiv ? "DA" : "NE";
+                String s = r.strateskiVazan ? "DA" : "NE";
+
+                Regex match = new Regex(Ime, RegexOptions.IgnoreCase);
+                Match mIme = match.Match(r.ime);
+
+                match = new Regex(Oznaka, RegexOptions.IgnoreCase);
+                Match mOznaka= match.Match(r.oznaka);
+
+                if (((mIme.Success && mIme.Value.Length == r.ime.Length) || Ime.Equals("")) && 
+                    ((mOznaka.Success && mOznaka.Value.Length == r.oznaka.Length) || Oznaka.Equals("")) &&
+                    (Tip.Equals("") || Tip.Equals(r.tip))) {
+                    l.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, TipImg = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum });
+                }
+            }
+            this.Close( );
+            var tablefil = new Table(l);
+            tablefil.ShowDialog( );
+        }
+
+        private void Button_Full(object sender, RoutedEventArgs e)
+        {
+            this.Close( );
+            var table = new Table();
+            table.ShowDialog( );
+        }
     }
 }
