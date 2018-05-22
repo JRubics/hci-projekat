@@ -95,6 +95,7 @@
                 <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
                 <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
                 <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
+                <!--Button Canvas.Left="10" Canvas.Top="300" Content="pretraga" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Find"/-->
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="SAmericaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="160" Canvas.Top="00" Source="resources/south_america.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->

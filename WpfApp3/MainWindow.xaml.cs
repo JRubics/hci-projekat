@@ -72,7 +72,7 @@ namespace WpfApp3
                 newBtn.MouseRightButtonUp += ButtonClickDelete;
 
                 ToolTip t = new ToolTip();
-                t.Content = resources.GetResourceAtI(i).oznaka;
+                t.Content = "oznaka: " + resources.GetResourceAtI(i).oznaka;
                 t.FontSize = 22;
                 newBtn.ToolTip = t;
                 ResourcePanel.Children.Add(newBtn);
@@ -590,9 +590,31 @@ namespace WpfApp3
                             img.AllowDrop = false;
                             img.Width = 40;
                             img.Height = 40;
+                            //img.Name = r.tip.ToString();
 
                             ToolTip t = new ToolTip( );
-                            String etiketeStr = "";
+                            StackPanel stack = new StackPanel( );
+                            stack.Orientation = Orientation.Vertical;
+
+                            StackPanel stack1 = new StackPanel( );
+                            stack1.Orientation = Orientation.Horizontal;
+                            stack1.Children.Add(new Label( ) { Content = "Oznaka: " + r.oznaka, FontWeight = FontWeights.Bold, FontSize = 18 });
+
+                            StackPanel stack2 = new StackPanel( );
+                            stack2.Orientation = Orientation.Horizontal;
+                            stack2.Children.Add(new Label( ) { Content = "Etikete: ", FontWeight = FontWeights.Bold, FontSize = 18 });
+                            for (int k = 0; k < r.etikete.Count; k++) {
+                                stack2.Children.Add(new Label( ) { Content = r.etikete[k].oznaka, FontWeight = FontWeights.Bold, FontSize = 18, Foreground = boja_etikete(r.etikete[k]) });
+                            }
+                            if (r.etikete.Count == 0) {
+                                stack2 = new StackPanel( );
+                                stack2.Orientation = Orientation.Horizontal;
+                                stack2.Children.Add(new Label( ) { Content = "Nema etikete", FontWeight = FontWeights.Bold, FontSize = 18 });
+                            }
+                            stack.Children.Add(stack1);
+                            stack.Children.Add(stack2);
+                            t.Content = stack;
+                            /*String etiketeStr = "etikete: ";
                             for (int j = 0; j < r.etikete.Count; j++) {
                                 etiketeStr += r.etikete[j].oznaka + " ";
                             }
@@ -600,7 +622,7 @@ namespace WpfApp3
                                 t.Content = etiketeStr;
                             } else {
                                 t.Content = "Nema etikete";
-                            }
+                            }*/
                             t.FontSize = 20;
                             img.ToolTip = t;
 
@@ -622,6 +644,27 @@ namespace WpfApp3
                     Canvas.SetLeft(img, p.X);
                     canvas.Children.Add(img);
                 }
+            }
+        }
+
+        private SolidColorBrush boja_etikete(Tag tag)
+        {
+            SolidColorBrush b;
+            if (tag.boja == "crvena") { 
+                b = new SolidColorBrush(Colors.Red);
+                return b;
+            } else if (tag.boja == "zelena") {
+                b = new SolidColorBrush(Colors.Green);
+                return b;
+            } else if (tag.boja == "plava") {
+                b = new SolidColorBrush(Colors.Blue);
+                return b;
+            } else if (tag.boja == "žuta") {
+                b = new SolidColorBrush(Colors.Yellow);
+                return b;
+            } else {
+                b = new SolidColorBrush(Colors.Black);
+                return b;
             }
         }
 
@@ -738,5 +781,25 @@ namespace WpfApp3
                 System.Diagnostics.Process.Start("about.html");
             }
         }
+
+        /*private void Button_Find(object sender, RoutedEventArgs e)
+        {
+            List<UIElement> elements = new List<UIElement>( );
+            foreach (UIElement el in canvas.Children) {
+                if (el is Image) {
+                    Image img = el as Image;
+                    String t = GetToolTip(img);
+                    if (!t.Equals("as")) {
+                        elements.Add(el);
+                    }
+                }
+            }
+            foreach (UIElement el in elements) {
+                if (el is Image) {
+                    if ((el as Image).ActualHeight < 100)
+                        canvas.Children.Remove(el);
+                }
+            }
+        }*/
     }
 }

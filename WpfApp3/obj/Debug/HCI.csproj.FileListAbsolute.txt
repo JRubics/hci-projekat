@@ -27,9 +27,6 @@ C:\Users\1040 G3\source\repos\WpfApp3\WpfApp3\obj\Debug\HCI.csproj.CoreCompileIn
 C:\Users\1040 G3\source\repos\WpfApp3\WpfApp3\obj\Debug\WpfApp3.exe
 C:\Users\1040 G3\source\repos\WpfApp3\WpfApp3\obj\Debug\WpfApp3.pdb
 C:\Users\1040 G3\source\repos\WpfApp3\WpfApp3\obj\Debug\HCI.csprojResolveAssemblyReference.cache
-C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\bin\Debug\WpfApp3.exe.config
-C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\bin\Debug\WpfApp3.exe
-C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\bin\Debug\WpfApp3.pdb
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\WhistlerBlue\Theme.baml
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\login\login.g.cs
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\MainWindow.g.cs
@@ -41,9 +38,11 @@ C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\Table\Table.g.cs
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\TagTable\TagTable.g.cs
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\TypeTable\TypeTable.g.cs
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\App.g.cs
-C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\WpfApp3_MarkupCompile.cache
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\WpfApp3_MarkupCompile.lref
+C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\bin\Debug\WpfApp3.exe.config
+C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\bin\Debug\WpfApp3.exe
+C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\bin\Debug\WpfApp3.pdb
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\login\login.baml
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\MainWindow.baml
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\messageBox\messageBox.baml
@@ -59,4 +58,3 @@ C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\HCI.csproj.GenerateResource.C
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\HCI.csproj.CoreCompileInputs.cache
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\WpfApp3.exe
 C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\WpfApp3.pdb
-C:\Users\1040 G3\Desktop\WpfApp3\WpfApp3\obj\Debug\HCI.csprojResolveAssemblyReference.cache
