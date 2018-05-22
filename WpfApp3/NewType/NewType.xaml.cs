@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp3.NewResource;
 
 namespace WpfApp3.NewType 
 {
@@ -34,6 +35,13 @@ namespace WpfApp3.NewType
             Opis = "";
             Ikonica = "";
             IkonicaLabel = "Dodajte ikonicu";
+            INotifyPropertyChanged win = DataContext as INotifyPropertyChanged;
+            if (win != null)
+                win.PropertyChanged += new PropertyChangedEventHandler(validatenew);
+        }
+        private void validatenew(object sender, PropertyChangedEventArgs e)
+        {
+            StringToDoubleValidationRule.validate_all(true);
         }
 
         public NewType(Type t)
@@ -48,6 +56,13 @@ namespace WpfApp3.NewType
             Opis = t.opis;
             Ikonica = t.ikonica;
             IkonicaLabel = t.ikonica;
+            INotifyPropertyChanged win = DataContext as INotifyPropertyChanged;
+            if (win != null)
+                win.PropertyChanged += new PropertyChangedEventHandler(validate);
+        }
+        private void validate(object sender, PropertyChangedEventArgs e)
+        {
+            StringToDoubleValidationRule.validate_all(false);
         }
 
         #region PropertyChangedNotifier

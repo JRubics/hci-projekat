@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp3.NewResource;
 
 namespace WpfApp3.NewTag
 {
@@ -33,6 +34,7 @@ namespace WpfApp3.NewTag
             InitializeComponent( );
             DataContext = this;
             tbozn.IsEnabled = false;
+            b_potvrdi.IsEnabled = true;
 
             Oznaka = t.oznaka;
             Opis = t.opis;
@@ -45,6 +47,13 @@ namespace WpfApp3.NewTag
                 BojaCombo.Add(Enum.GetName(typeof(Boje), b));
             }
             Boja = t.boja;
+            INotifyPropertyChanged tag = DataContext as INotifyPropertyChanged;
+            if (tag != null)
+                tag.PropertyChanged += new PropertyChangedEventHandler(validate);
+        }
+        private void validate(object sender, PropertyChangedEventArgs e)
+        {
+            StringToDoubleValidationRule.validate_all(false);
         }
 
         public NewTag()
@@ -54,6 +63,7 @@ namespace WpfApp3.NewTag
 
             InitializeComponent( );
             DataContext = this;
+            b_potvrdi.IsEnabled = false;
             Oznaka = "";
             Opis = "";
 
@@ -65,8 +75,14 @@ namespace WpfApp3.NewTag
                 BojaCombo.Add(Enum.GetName(typeof(Boje), b));
             }
             Boja = BojaCombo.First( );
+            INotifyPropertyChanged tag = DataContext as INotifyPropertyChanged;
+            if (tag != null)
+                tag.PropertyChanged += new PropertyChangedEventHandler(validatenew);
         }
-
+        private void validatenew(object sender, PropertyChangedEventArgs e)
+        {
+            StringToDoubleValidationRule.validate_all(true);
+        }
         #region PropertyChangedNotifier
         protected virtual void OnPropertyChanged(string name)
         {

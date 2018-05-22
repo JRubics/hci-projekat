@@ -49,12 +49,6 @@ namespace WpfApp3.NewResource
                     }
                     return new ValidationResult(true, null);
                 }
-                foreach (Window window in Application.Current.Windows) {
-                    if (window.GetType( ) == typeof(NewResource)) {
-                        (window as NewResource).b_potvrdi.IsEnabled = false;
-                        NewResource.ErrorCounter++;
-                    }
-                }
                 return new ValidationResult(false, "Popunite");
             } catch {
                 return new ValidationResult(false, "Unknown error occured.");

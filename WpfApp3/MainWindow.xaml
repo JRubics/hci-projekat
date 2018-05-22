@@ -76,7 +76,7 @@
                 <Button Content="  J. Amerika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="112,230,421.6,132"  Click="Button_S_America"/>
                 <Button Content=" Australija" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="507,266,26.6,96"  Click="Button_Oceania"/>
                 <Button Content="  Azija" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="419,105,114.6,257"  Click="Button_Asia"/>
-                <TextBox HorizontalAlignment="Left" Height="23" Margin="63,359,0,0" Text="{Binding Path=Test1, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Width="494"/>
+                <!--TextBox HorizontalAlignment="Left" Height="23" Margin="63,359,0,0" Text="{Binding Path=Test1, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Width="494"/-->
             </Grid>
             <Canvas VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  x:Name="AfricaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="150" Canvas.Top="00" Source="resources/africa.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->

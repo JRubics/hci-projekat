@@ -392,8 +392,8 @@ namespace WpfApp3
             MenuItem item6 = new MenuItem { Header = "Tabela Tipova", FontSize = 20 };
             MenuItem item4 = new MenuItem { Header = "Nova Etiketa", FontSize = 20 };
             MenuItem item5 = new MenuItem { Header = "Tabela Etiketa", FontSize = 20 };
-            MenuItem item7 = new MenuItem { Header = "Help", FontSize = 20 };
-            MenuItem item8 = new MenuItem { Header = "About", FontSize = 20 };
+            MenuItem item7 = new MenuItem { Header = "Pomoć", FontSize = 20 };
+            MenuItem item8 = new MenuItem { Header = "O programu", FontSize = 20 };
 
             item1.Click += Button_Click;
             item2.Click += OpenTable;
@@ -437,7 +437,7 @@ namespace WpfApp3
                 Source = new BitmapImage(new Uri("../../resources/information.png", UriKind.Relative))
             };
 
-            if (typesc.Len() == 0) {
+            if (typesc.Len( ) == 0) {
                 ToolTip t = new ToolTip( );
                 t.Content = "Nije dozvoljeno dodavanje resursa ako ne postoji ni jedan tip";
                 t.FontSize = 18;
@@ -448,6 +448,46 @@ namespace WpfApp3
 
                 item1.IsEnabled = false;
                 item2.IsEnabled = false;
+            } else {
+                ToolTip t1 = new ToolTip( );
+                t1.FontSize = 18;
+                t1.Content = "l.ctrl + R";
+                item1.ToolTip = t1;
+
+                ToolTip t2 = new ToolTip( );
+                t2.FontSize = 18;
+                t2.Content = "l.shift + R";
+                item2.ToolTip = t2;
+
+                ToolTip t3 = new ToolTip( );
+                t3.FontSize = 18;
+                t3.Content = "l.ctrl + T";
+                item3.ToolTip = t3;
+
+                ToolTip t4 = new ToolTip( );
+                t4.FontSize = 18;
+                t4.Content = "l.ctrl + N";
+                item4.ToolTip = t4;
+
+                ToolTip t5 = new ToolTip( );
+                t5.FontSize = 18;
+                t5.Content = "l.shift + T";
+                item5.ToolTip = t5;
+
+                ToolTip t6 = new ToolTip( );
+                t6.FontSize = 18;
+                t6.Content = "l.shift + N";
+                item6.ToolTip = t6;
+
+                ToolTip t7 = new ToolTip( );
+                t7.FontSize = 18;
+                t7.Content = "l.shift + N";
+                item6.ToolTip = t7;
+
+                ToolTip t8 = new ToolTip( );
+                t8.FontSize = 18;
+                t8.Content = "l.shift + N";
+                item6.ToolTip = t8;
             }
 
             cm.Items.Add(item1);
@@ -525,9 +565,6 @@ namespace WpfApp3
 
         private void Image_Drop(object sender, DragEventArgs e)
         {
-            foreach (UIElement c in canvas.Children) {
-                //stavi da se ne preklapaju
-            }
             if (e.Data.GetDataPresent("myFormat")) {
                 if (e.Data.GetData("myFormat") is Button) {
                     Button b = e.Data.GetData("myFormat") as Button;
@@ -685,6 +722,20 @@ namespace WpfApp3
             if (e.Key == Key.F1) {
                 //help
                 System.Diagnostics.Process.Start("help.html");
+            } else if (e.Key == Key.R && Keyboard.IsKeyDown(Key.LeftCtrl)) {
+                Button_Click( sender,e);
+            } else if (e.Key == Key.R && Keyboard.IsKeyDown(Key.LeftShift)) {
+                OpenTable(sender, e);
+            } else if (e.Key == Key.T && Keyboard.IsKeyDown(Key.LeftCtrl)) {
+                OpenNewType(sender, e);
+            } else if (e.Key == Key.T && Keyboard.IsKeyDown(Key.LeftShift)) {
+                OpenTypeTable(sender, e);
+            } else if (e.Key == Key.N && Keyboard.IsKeyDown(Key.LeftCtrl)) {
+                OpenNewTag(sender, e);
+            } else if (e.Key == Key.N && Keyboard.IsKeyDown(Key.LeftShift)) {
+                OpenTagTable(sender, e);
+            } else if (e.Key == Key.O && Keyboard.IsKeyDown(Key.LeftCtrl)) {
+                System.Diagnostics.Process.Start("about.html");
             }
         }
     }

@@ -35,22 +35,7 @@ namespace WpfApp3.NewResource
         public NewResource(Res r,String a) {
             s = a;
             Oznakaenabled = false;
-            
-            /*for (int i = 0; i < MainWindow.Resources.Len(); i++) {
-                if (MainWindow.Resources.GetResourceAtI(i).oznaka == r.oznaka) {
-                    MainWindow.Resources.GetResourceAtI(i).ime = r.ime;
-                    MainWindow.Resources.GetResourceAtI(i).opis = r.opis;
-                    MainWindow.Resources.GetResourceAtI(i).tip = r.tip;
-                    MainWindow.Resources.GetResourceAtI(i).frekvencija = r.frekvencija;
-                    MainWindow.Resources.GetResourceAtI(i).ikonica = r.ikonica;
-                    MainWindow.Resources.GetResourceAtI(i).obnovljiv = r.obnovljiv;
-                    MainWindow.Resources.GetResourceAtI(i).strateskiVazan = r.strateskiVazan;
-                    MainWindow.Resources.GetResourceAtI(i).eksploatisanje = r.eksploatisanje;
-                    MainWindow.Resources.GetResourceAtI(i).mera = r.mera;
-                    MainWindow.Resources.GetResourceAtI(i).cena = r.cena;
-                    MainWindow.Resources.GetResourceAtI(i).datum = r.datum;
-                }
-            }*/
+
             InitializeComponent( );
             DataContext = this;
             b_potvrdi.IsEnabled = true;
@@ -105,6 +90,20 @@ namespace WpfApp3.NewResource
                 }
                 items.Add(it);
             }
+            if (r.etikete.Count > 0) {
+                EExists = "Etikete:";
+            } else {
+                EExists = " ";
+            }
+
+            INotifyPropertyChanged win = DataContext as INotifyPropertyChanged;
+            if (win != null)
+                win.PropertyChanged += new PropertyChangedEventHandler(validate);
+        }
+
+        private void validate(object sender, PropertyChangedEventArgs e)
+        {
+            StringToDoubleValidationRule.validate_all(false);
         }
 
         public NewResource()
@@ -164,6 +163,19 @@ namespace WpfApp3.NewResource
                 items.Add(new Item(MainWindow.Tags.GetTagAtI(i).oznaka, MainWindow.Tags.GetTagAtI(i).boja, MainWindow.Tags.GetTagAtI(i).opis));
             }
 
+            if (MainWindow.Tags.Len( ) > 0) {
+                EExists = "Etikete:";
+            } else {
+                EExists = " ";
+            }
+            INotifyPropertyChanged win = DataContext as INotifyPropertyChanged;
+            if (win != null)
+                win.PropertyChanged += new PropertyChangedEventHandler(validatenew);
+        }
+
+        private void validatenew(object sender, PropertyChangedEventArgs e)
+        {
+            StringToDoubleValidationRule.validate_all(true);
         }
 
         public class Item
@@ -205,6 +217,19 @@ namespace WpfApp3.NewResource
                 {
                     _test1 = value;
                     OnPropertyChanged("Test1");
+                }
+            }
+        }
+
+        private string _e_exists;
+        public string EExists {
+            get {
+                return _e_exists;
+            }
+            set {
+                if (value != _e_exists) {
+                    _e_exists = value;
+                    OnPropertyChanged("EExists");
                 }
             }
         }
@@ -516,7 +541,7 @@ namespace WpfApp3.NewResource
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            bool unique = false;
+            /*bool unique = false;
             if (Oznakaenabled) {
                 for (int i = 0; i < MainWindow.Typesc.Len( ); i++) {
                     if (Oznaka.Equals(MainWindow.Typesc.GetTypeAtI(i).oznaka) || Oznaka.Equals("")) {
@@ -560,7 +585,7 @@ namespace WpfApp3.NewResource
                     s.ShowDialog( );
                     return;
                 }
-            }
+            }*/
 
             String TipImg = MainWindow.Typesc.GetTypeById(Tip).ikonica;
             //TipImg = Tip;

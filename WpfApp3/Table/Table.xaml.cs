@@ -377,5 +377,17 @@ namespace WpfApp3.Table
             var table = new Table();
             table.ShowDialog( );
         }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1) {
+                //help
+                System.Diagnostics.Process.Start("help.html");
+            } else if (e.Key == Key.P && Keyboard.IsKeyDown(Key.LeftCtrl)) {
+                Button_Click(sender, e);
+            } else if (e.Key == Key.C && Keyboard.IsKeyDown(Key.LeftCtrl)) {
+                Button_Full(sender, e);
+            }
+        }
     }
 }
