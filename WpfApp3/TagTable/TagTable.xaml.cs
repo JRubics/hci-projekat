@@ -123,6 +123,10 @@ namespace WpfApp3.TagTable
             ContextMenu cm = new ContextMenu( );
             MenuItem item = new MenuItem { Header = "delete", FontSize = 20 };
             item.Click += RemoveTag;
+            item.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/garbage.png", UriKind.Relative)) 
+                   };
             cm.Items.Add(item);
 
             var mouseWasDownOn = e.Source as FrameworkElement;

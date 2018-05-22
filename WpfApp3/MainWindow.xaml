@@ -1,5 +1,6 @@
 ﻿<Window x:Class="WpfApp3.MainWindow"
         KeyDown="OnKeyDownHandler"
+        Icon="resources/earth-globe.png"
         MaxWidth="750"
         MaxHeight="430"
         MinWidth="735"
@@ -10,7 +11,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="420" Width="740" Closing="Window_Closing" Initialized="Window_Initialized" Background="White">
+        Title="Mapa resursa" Height="420" Width="740" Closing="Window_Closing" Initialized="Window_Initialized" Background="White">
     <Window.Resources>
         <Style x:Key="ContinentStyle" TargetType="Button">
             <Setter Property="FontWeight" Value="Bold"/>
@@ -79,33 +80,39 @@
             </Grid>
             <Canvas VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  x:Name="AfricaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="150" Canvas.Top="00" Source="resources/africa.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="BACK" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="CLEAR" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" HorizontalAlignment="Left" AllowDrop="False" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" HorizontalAlignment="Left" Margin="10,10,0,0" AllowDrop="False" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="EuropeGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="135" Canvas.Top="10" Source="resources/europe.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="BACK" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="CLEAR" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Button Canvas.Left="10" Canvas.Top="10" AllowDrop="False" Content="NAZAD" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
+                <Button Canvas.Left="10" Canvas.Top="60" AllowDrop="False" Content="OČISTI" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="NAmericaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="80" Canvas.Top="00" Source="resources/north_america.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="BACK" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="CLEAR" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="SAmericaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="160" Canvas.Top="00" Source="resources/south_america.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="BACK" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="CLEAR" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="AsiaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="80" Canvas.Top="00" Source="resources/asia.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="BACK" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="CLEAR" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="OceaniaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="80" Canvas.Top="00" Source="resources/oceania.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="BACK" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="CLEAR" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
             </Canvas>
         </DockPanel>
     </DockPanel>

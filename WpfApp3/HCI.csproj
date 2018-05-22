@@ -57,6 +57,9 @@
     <Compile Include="login\login.xaml.cs">
       <DependentUpon>login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="messageBox\messageBox.xaml.cs">
+      <DependentUpon>messageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewResource\StringToDoubleValidationRule.cs" />
     <Compile Include="NewResource\ValidationMustBeFilled.cs" />
     <Compile Include="NewTag\NewTag.xaml.cs">
@@ -97,6 +100,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="messageBox\messageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NewResource\NewResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -172,6 +179,13 @@
   <ItemGroup>
     <Resource Include="resources\image.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="resources\garbage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\contract.png" />
+    <Resource Include="resources\earth-globe.png" />
+    <Resource Include="resources\information.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3.NewType"
+        Icon="../resources/earth-globe.png"
         xmlns:val="clr-namespace:WpfApp3.NewResource"
         mc:Ignorable="d"
-        Title="NewType" Height="420" Width="350" MaxWidth="400" MaxHeight="430">
+        Title="Tip" Height="420" Width="350" MaxWidth="400" MaxHeight="430">
     <Window.Resources>
         <Style x:Key="NewResStyle" TargetType="Label">
             <Setter Property="FontSize" Value="18"/>

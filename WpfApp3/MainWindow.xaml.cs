@@ -99,6 +99,11 @@ namespace WpfApp3
             ContextMenu cm = new ContextMenu( );
             MenuItem item = new MenuItem { Header = "delete" , FontSize = 20};
             item.Click += RemoveButton;
+            item.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/garbage.png", UriKind.Relative)) 
+                   };
+
             cm.Items.Add(item);
 
             var mouseWasDownOn = e.Source as FrameworkElement;
@@ -387,21 +392,88 @@ namespace WpfApp3
             MenuItem item6 = new MenuItem { Header = "Tabela Tipova", FontSize = 20 };
             MenuItem item4 = new MenuItem { Header = "Nova Etiketa", FontSize = 20 };
             MenuItem item5 = new MenuItem { Header = "Tabela Etiketa", FontSize = 20 };
+            MenuItem item7 = new MenuItem { Header = "Help", FontSize = 20 };
+            MenuItem item8 = new MenuItem { Header = "About", FontSize = 20 };
+
             item1.Click += Button_Click;
             item2.Click += OpenTable;
             item3.Click += OpenNewType;
             item4.Click += OpenNewTag;
             item5.Click += OpenTagTable;
             item6.Click += OpenTypeTable;
+            item7.Click += openHelp;
+            item8.Click += OpenAbout;
+
+            item1.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/rounded-add-button.png", UriKind.Relative)) 
+                   };
+            item2.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/table-grid.png", UriKind.Relative)) 
+                   };
+            item3.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/rounded-add-button.png", UriKind.Relative)) 
+                   };
+            item4.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/rounded-add-button.png", UriKind.Relative)) 
+                   };
+            item5.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/table-grid.png", UriKind.Relative)) 
+                   };
+            item6.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/table-grid.png", UriKind.Relative)) 
+                   };
+            item7.Icon = new System.Windows.Controls.Image 
+            {
+                Source = new BitmapImage(new Uri("../../resources/contract.png", UriKind.Relative))
+            };
+            item8.Icon = new System.Windows.Controls.Image 
+            {
+                Source = new BitmapImage(new Uri("../../resources/information.png", UriKind.Relative))
+            };
+
+            if (typesc.Len() == 0) {
+                ToolTip t = new ToolTip( );
+                t.Content = "Nije dozvoljeno dodavanje resursa ako ne postoji ni jedan tip";
+                t.FontSize = 18;
+                item3.ToolTip = t;
+                item5.ToolTip = t;
+                item4.ToolTip = t;
+                item6.ToolTip = t;
+
+                item1.IsEnabled = false;
+                item2.IsEnabled = false;
+            }
+
             cm.Items.Add(item1);
             cm.Items.Add(item2);
+            cm.Items.Add(new Separator());
             cm.Items.Add(item3);
             cm.Items.Add(item6);
+            cm.Items.Add(new Separator( ));
             cm.Items.Add(item4);
             cm.Items.Add(item5);
+            cm.Items.Add(new Separator( ));
+            cm.Items.Add(item7);
+            cm.Items.Add(item8);
+
             var mouseWasDownOn = e.Source as FrameworkElement;
             mouseWasDownOn.ContextMenu = cm;
             cm.IsOpen = true;
+        }
+
+        private void openHelp(object sender, RoutedEventArgs r) {
+            System.Diagnostics.Process.Start("help.html");
+        }
+
+        private void OpenAbout(object sender, RoutedEventArgs r)
+        {
+            System.Diagnostics.Process.Start("help.html");
         }
 
         //DRAG AND DROP
@@ -482,6 +554,19 @@ namespace WpfApp3
                             img.Width = 40;
                             img.Height = 40;
 
+                            ToolTip t = new ToolTip( );
+                            String etiketeStr = "";
+                            for (int j = 0; j < r.etikete.Count; j++) {
+                                etiketeStr += r.etikete[j].oznaka + " ";
+                            }
+                            if (!etiketeStr.Equals("")) {
+                                t.Content = etiketeStr;
+                            } else {
+                                t.Content = "Nema etikete";
+                            }
+                            t.FontSize = 20;
+                            img.ToolTip = t;
+
                             Canvas.SetTop(img, r.position.Y);
                             Canvas.SetLeft(img, r.position.X);
                             canvas.Children.Add(img);
@@ -551,6 +636,7 @@ namespace WpfApp3
             }
             foreach (UIElement el in elements) {
                 if (el is Image) {
+                    if((el as Image).ActualHeight < 100)
                     canvas.Children.Remove(el);
                 }
             }

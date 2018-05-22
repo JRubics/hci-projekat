@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WpfApp3.NewTag"
         xmlns:val="clr-namespace:WpfApp3.NewResource"
         mc:Ignorable="d"
-        Title="NewTag" Height="330" Width="330" MaxWidth="350" MaxHeight="350">
+        Icon="../resources/earth-globe.png"
+        Title="Etiketa" Height="330" Width="330" MaxWidth="350" MaxHeight="350">
     <Window.Resources>
         <Style x:Key="NewResStyle" TargetType="Label">
             <Setter Property="FontSize" Value="18"/>

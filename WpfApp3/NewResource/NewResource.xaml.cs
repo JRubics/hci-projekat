@@ -27,9 +27,11 @@ namespace WpfApp3.NewResource
         public ObservableCollection<string> FrekvCombo { get; set; }
         public ObservableCollection<string> MeraCombo { get; set; }
         public ObservableCollection<Item> items { get; set; }
+        //public bool ButtonEnabled;
 
         public String s = "";//mode pozivanja button click-a
         public bool Oznakaenabled = true;
+        public static int ErrorCounter = 0;
         public NewResource(Res r,String a) {
             s = a;
             Oznakaenabled = false;
@@ -51,7 +53,7 @@ namespace WpfApp3.NewResource
             }*/
             InitializeComponent( );
             DataContext = this;
-
+            b_potvrdi.IsEnabled = true;
             tboznaka.IsEnabled = false;
 
             Ime = r.ime;
@@ -111,7 +113,8 @@ namespace WpfApp3.NewResource
             s = "";
             InitializeComponent();
             DataContext = this;
-            
+            b_potvrdi.IsEnabled = false;
+
             Ime = "";
             Oznaka = "";
             Opis = "";
@@ -153,7 +156,7 @@ namespace WpfApp3.NewResource
             }
             Mera = MeraCombo.First();
 
-            Cena = 0;
+            Cena = "0";
             Datum = DateTime.Now;
 
             items = new ObservableCollection<Item>();
@@ -309,8 +312,8 @@ namespace WpfApp3.NewResource
             }
         }
 
-        private Double _cena;
-        public Double Cena
+        private String _cena;
+        public String Cena
         {
             get
             {
@@ -501,6 +504,16 @@ namespace WpfApp3.NewResource
             Datum = (DateTime)date;
         }
 
+        private bool IsValid(DependencyObject obj)
+        {
+            // The dependency object is valid if it has no errors and all
+            // of its children (that are dependency objects) are error-free.
+            return !Validation.GetHasError(obj) &&
+            LogicalTreeHelper.GetChildren(obj)
+            .OfType<DependencyObject>( )
+            .All(IsValid);
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             bool unique = false;
@@ -520,13 +533,35 @@ namespace WpfApp3.NewResource
                         unique = true;//greska
                     }
                 }
-                if (Oznaka.Equals(" ") || Ime.Equals(" ") || Opis.Equals("") || Cena.Equals(" ") || Cena == 0 || unique) {
-                    MessageBoxResult result = MessageBox.Show("Popunite sva polja prema zahtevima", "Nemoguce dodavanje", MessageBoxButton.OK, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.OK) {
-                        return;
-                    }
+                if (Oznaka.Equals(" ") || Ime.Equals(" ") || Opis.Equals(" ") || Cena.Equals(" ") || Oznaka.Equals("") || Ime.Equals("") || Opis.Equals("") || Cena.Equals("") || unique) {
+                    var s = new messageBox.Window1("Popunite sva polja prema zahtevima");
+                    s.ShowDialog( );
+                    return;
+                }
+                //provericenu
+                StringToDoubleValidationRule validation = new StringToDoubleValidationRule( );
+                ValidationResult valid = validation.Validate(Cena, null);
+                if (!valid.IsValid) {
+                    var s = new messageBox.Window1("RADIIII");
+                    s.ShowDialog( );
+                    return;
+                }
+            } else {
+                if (Oznaka.Equals(" ") || Ime.Equals(" ") || Opis.Equals(" ") || Cena.Equals(" ") || Oznaka.Equals("") || Ime.Equals("") || Opis.Equals("") || Cena.Equals("") || unique) {
+                    var s = new messageBox.Window1("Popunite sva polja prema zahtevima");
+                    s.ShowDialog( );
+                    return;
+                }
+                //provericenu
+                StringToDoubleValidationRule validation = new StringToDoubleValidationRule( );
+                ValidationResult valid = validation.Validate(Cena, null);
+                if (!valid.IsValid) {
+                    var s = new messageBox.Window1("RADIIII");
+                    s.ShowDialog( );
+                    return;
                 }
             }
+
             String TipImg = MainWindow.Typesc.GetTypeById(Tip).ikonica;
             //TipImg = Tip;
             Res r = new Res(Oznaka, Ime,Opis, Tip, TipImg, Frekvencija,Ikonica, Obnovljiv, StrateskiVazan, Eksploatisanje, Mera, Cena, Datum);

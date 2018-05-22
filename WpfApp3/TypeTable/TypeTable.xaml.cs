@@ -96,6 +96,10 @@ namespace WpfApp3.TypeTable
             ContextMenu cm = new ContextMenu( );
             MenuItem item = new MenuItem { Header = "delete", FontSize = 20 };
             item.Click += RemoveType;
+            item.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/garbage.png", UriKind.Relative)) 
+                   };
             cm.Items.Add(item);
 
             var mouseWasDownOn = e.Source as FrameworkElement;
@@ -110,7 +114,8 @@ namespace WpfApp3.TypeTable
             //dodaj proveru da ne sme da brise ako se igde koristi
             for(int i = 0; i < MainWindow.Resources.Len(); i++) {
                 if (MainWindow.Resources.GetResourceAtI(i).tip.Equals(id)) {
-                    MessageBoxResult result = MessageBox.Show("Ne možete obrisati tip koji je u upotrebi", "Nemoguce brisanje", MessageBoxButton.OK, MessageBoxImage.Question);
+                    var s = new messageBox.Window1("Ne možete obrisati tip koji je u upotrebi");
+                    s.ShowDialog( );
                     return;
                 }
             }

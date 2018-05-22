@@ -1,14 +1,19 @@
 ﻿<Window x:Class="WpfApp3.Table.Table"
         MaxWidth="750"
         MaxHeight="430"
+        Icon="../resources/earth-globe.png"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:val="clr-namespace:WpfApp3.NewResource"
         xmlns:local="clr-namespace:WpfApp3.Table"
         mc:Ignorable="d"
-        Title="Table" Height="420" Width="740" Closing="Window_Closing">
+        Title="Tabela resursa" Height="420" Width="740" Closing="Window_Closing">
     <Window.Resources>
+        <Style x:Key="NewResTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
         <Style x:Key="NewResStyle" TargetType="Label">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Medium"/>
@@ -43,8 +48,9 @@
                     <GridViewColumn Header="Eksploatisanje" Width="80" DisplayMemberBinding="{Binding Eksploatisanje, UpdateSourceTrigger=PropertyChanged}" />
                     <GridViewColumn Header="Strateska vaznost" Width="80" DisplayMemberBinding="{Binding StrateskiVazan, UpdateSourceTrigger=PropertyChanged}" />
                     <GridViewColumn Header="Mera" Width="80" DisplayMemberBinding="{Binding Mera, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Cena" Width="150" DisplayMemberBinding="{Binding Cena, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Datum" Width="200" DisplayMemberBinding="{Binding Datum, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Cena" Width="120" DisplayMemberBinding="{Binding Cena, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Datum" Width="220" DisplayMemberBinding="{Binding Datum, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Etikete" Width="150" DisplayMemberBinding="{Binding Etikete, UpdateSourceTrigger=PropertyChanged}" />
                 </GridView>
             </ListView.View>
         </ListView>
@@ -60,5 +66,11 @@
 
         <Label Content="Tip" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,10,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
         <ComboBox FontSize="18" Margin="280,10,324.6,86.4" ItemsSource="{Binding Path=TipoviCombo}" SelectedItem="{Binding Path=Tip}" RenderTransformOrigin="-1.062,5.363" Grid.Row="1"/>
+
+        <Label Content="Cena($) min:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,59,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
+        <TextBox x:Name="min_box" HorizontalAlignment="Left" Height="33" Margin="323,59,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Min, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="75" Style="{StaticResource ResourceKey=NewResTextBoxStyle}" RenderTransformOrigin="1.289,0.383"/>
+        <Label Content="max:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="403,59,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
+
+        <TextBox x:Name="max_box" HorizontalAlignment="Left" Height="33" Margin="456,59,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Max, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="75" Style="{StaticResource ResourceKey=NewResTextBoxStyle}" RenderTransformOrigin="1.289,0.383"/>
     </Grid>
 </Window>

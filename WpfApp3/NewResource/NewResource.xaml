@@ -6,7 +6,8 @@
         xmlns:val="clr-namespace:WpfApp3.NewResource"
         xmlns:local="clr-namespace:WpfApp3.NewResource"
         mc:Ignorable="d"
-        Title="NewResource" Height="400" Width="360" MaxWidth="400" MaxHeight="430">
+        Icon="../resources/earth-globe.png"
+        Title="Rerurs" Height="400" Width="360" MaxWidth="400" MaxHeight="430">
     <Window.Resources>
         <Style x:Key="NewResStyle" TargetType="Label">
             <Setter Property="FontSize" Value="18"/>
@@ -40,7 +41,7 @@
                     <Label Grid.Column="0" Grid.Row="0" Margin="20,50,50,0" Content="Oznaka" Style="{StaticResource ResourceKey=NewResStyle}"/>
                     <TextBox Name="tboznaka" IsEnabled="{Binding Path=Oznakaenabled}" Width="80" Grid.Column="1" Grid.Row="0" Margin="0,50,220,0" Style="{StaticResource ResourceKey=NewResTextBoxStyle}">
                         <TextBox.Text>
-                            <Binding Path="Oznaka" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Oznaka" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
                                     <val:ValidationMustBeFilledAndUnique ValidationStep="RawProposedValue"/>
                                 </Binding.ValidationRules>
@@ -66,7 +67,7 @@
                     <Label Grid.Column="0" Grid.Row="1" Margin="20,20,50,0" Content="Ime" Style="{StaticResource ResourceKey=NewResStyle}"/>
                     <TextBox Width="80" Grid.Column="1" Grid.Row="1" Margin="0,20,220,0" Style="{StaticResource ResourceKey=NewResTextBoxStyle}">
                         <TextBox.Text>
-                            <Binding Path="Ime" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Ime" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
                                     <val:ValidationMustBeFilled ValidationStep="RawProposedValue"/>
                                 </Binding.ValidationRules>
@@ -92,7 +93,7 @@
                     <Label Grid.Column="0" Grid.Row="2" Margin="20,20,50,0" Content="Opis" Style="{StaticResource ResourceKey=NewResStyle}"/>
                     <TextBox Width="100" Grid.Column="1" Grid.Row="2" Margin="0,20,220,0" Style="{StaticResource ResourceKey=NewResTextBoxStyle}">
                         <TextBox.Text>
-                            <Binding Path="Opis" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Opis" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
                                     <val:ValidationMustBeFilled ValidationStep="RawProposedValue"/>
                                 </Binding.ValidationRules>
@@ -168,7 +169,7 @@
                     <Label Grid.Column="0" Grid.Row="0" Margin="20,20,50,0" Content="Cena u $" Style="{StaticResource ResourceKey=NewResStyle}"/>
                     <TextBox Width="80" Grid.Column="1" Grid.Row="0" Margin="0,20,220,0" Style="{StaticResource ResourceKey=NewResTextBoxStyle}">
                         <TextBox.Text>
-                            <Binding Path="Cena" UpdateSourceTrigger="PropertyChanged" StringFormat="N2">
+                            <Binding Path="Cena" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
                                 </Binding.ValidationRules>
@@ -210,7 +211,7 @@
                     </ItemsControl>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <Button Content="Potvrdi" Width="75" Height="30" Margin="0,0,0,20" Click="Button_Click" HorizontalAlignment="Center" Style="{StaticResource ResourceKey=NewResButtonStyle}"/>
+                    <Button x:Name="b_potvrdi" x:FieldModifier="public" Content="Potvrdi" Width="75" Height="30" Margin="0,0,0,20" Click="Button_Click" HorizontalAlignment="Center" Style="{StaticResource ResourceKey=NewResButtonStyle}"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

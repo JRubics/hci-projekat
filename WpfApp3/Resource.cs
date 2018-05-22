@@ -21,7 +21,7 @@ namespace WpfApp3
         public Boolean strateskiVazan;
         public Boolean eksploatisanje;
         public String mera;
-        public Double cena;
+        public String cena;
         public DateTime datum;
         public List<Tag> etikete;
         public Point position;
@@ -31,7 +31,7 @@ namespace WpfApp3
             position = new Point(-1, -1);
         }
 
-        public Res(string oznaka, string ime, string opis, string tip, string tipImg, string frekvencija, string ikonica, bool obnovljiv, bool strateskiVazan, bool eksploatisanje, string mera, double cena, DateTime datum)
+        public Res(string oznaka, string ime, string opis, string tip, string tipImg, string frekvencija, string ikonica, bool obnovljiv, bool strateskiVazan, bool eksploatisanje, string mera, string cena, DateTime datum)
         {
             this.oznaka = oznaka;
             this.ime = ime;

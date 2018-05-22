@@ -1,0 +1,16 @@
+﻿<Window x:Class="WpfApp3.messageBox.Window1"
+        Icon="../resources/earth-globe.png"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp3.messageBox"
+        mc:Ignorable="d"
+        Title="Poruka" Height="172.34" Width="300">
+    <Grid>
+        <Label HorizontalAlignment="Center" Content="{Binding Path=Test1, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" HorizontalContentAlignment="Center" FontSize="18" Margin="32,18,24.6,0" VerticalAlignment="Top" Width="237" Height="37"/>
+        <Button Content="OK" FontSize="22" FontWeight="Bold" HorizontalAlignment="Left" Margin="122,99,0,0" VerticalAlignment="Top" Width="51" Click="Button_Click"/>
+        <Label HorizontalAlignment="Center" Content="{Binding Test2, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" FontSize="18" Margin="32,55,24.6,0" VerticalAlignment="Top" Width="237" Height="39"/>
+
+    </Grid>
+</Window>

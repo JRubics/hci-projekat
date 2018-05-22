@@ -26,6 +26,10 @@ namespace WpfApp3.login
             this.DataContext = this;
             IsEnabled = false;
 
+            INotifyPropertyChanged person = DataContext as INotifyPropertyChanged;
+            if (person != null)
+                person.PropertyChanged += new PropertyChangedEventHandler(uname_changed);
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -82,9 +86,6 @@ namespace WpfApp3.login
                 passwordBox.BorderBrush = Brushes.Red;
                 passwordBox.BorderThickness = myThickness;
 
-                INotifyPropertyChanged person = DataContext as INotifyPropertyChanged;
-                if (person != null)
-                    person.PropertyChanged += new PropertyChangedEventHandler(uname_changed);
             }
 
             
@@ -110,6 +111,8 @@ namespace WpfApp3.login
 
             if (User != "" && passwordBox.Password != "") {
                 b.IsEnabled = true;
+            } else {
+                b.IsEnabled = false;
             }
         }
     }

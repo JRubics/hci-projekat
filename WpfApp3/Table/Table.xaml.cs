@@ -34,13 +34,17 @@ namespace WpfApp3.Table
                 String e = MainWindow.Resources.GetResourceAtI(i).eksploatisanje ? "DA" : "NE";
                 String o = MainWindow.Resources.GetResourceAtI(i).obnovljiv ? "DA" : "NE";
                 String s = MainWindow.Resources.GetResourceAtI(i).strateskiVazan ? "DA" : "NE";
+                String etiketeStr = "";
+                for (int j = 0; j < MainWindow.Resources.GetResourceAtI(i).etikete.Count; j++) {
+                    etiketeStr += MainWindow.Resources.GetResourceAtI(i).etikete[j].oznaka + " ";
+                }
                 String newImg = "";
                 if (MainWindow.Resources.GetResourceAtI(i).ikonica.Equals("")) {
                     newImg = MainWindow.Resources.GetResourceAtI(i).tipImg;
                 } else {
                     newImg = MainWindow.Resources.GetResourceAtI(i).ikonica;
                 }
-                l.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, TipImg = MainWindow.Resources.GetResourceAtI(i).tipImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica= newImg, Obnovljiv = o, Eksploatisanje = e, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum });
+                l.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, TipImg = MainWindow.Resources.GetResourceAtI(i).tipImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica= newImg, Obnovljiv = o, Eksploatisanje = e, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum, Etikete = etiketeStr });
             }
             Resursi = new ObservableCollection<Res>(l);
             resourceTable.ItemsSource = Resursi;
@@ -54,6 +58,13 @@ namespace WpfApp3.Table
                 TipoviCombo.Add(MainWindow.Typesc.GetTypeAtI(i).oznaka);
             }
             Tip = TipoviCombo.First( );
+
+            Max = "";
+            Min = "";
+
+            INotifyPropertyChanged price = DataContext as INotifyPropertyChanged;
+            if (price != null)
+                price.PropertyChanged += new PropertyChangedEventHandler(price_changed);
         }
 
         public Table(List<Res> l)
@@ -73,6 +84,36 @@ namespace WpfApp3.Table
                 TipoviCombo.Add(MainWindow.Typesc.GetTypeAtI(i).oznaka);
             }
             Tip = TipoviCombo.First( );
+
+            Max = "";
+            Min = "";
+
+            INotifyPropertyChanged price = DataContext as INotifyPropertyChanged;
+            if (price != null)
+                price.PropertyChanged += new PropertyChangedEventHandler(price_changed);
+        }
+
+        void price_changed(object sender, PropertyChangedEventArgs e)
+        {
+            double d;
+            if (!(double.TryParse(Max, out d)) && !Max.Equals("")) {
+                Thickness myThickness = new Thickness(2, 2, 2, 2);
+                max_box.BorderBrush = Brushes.Red;
+                max_box.BorderThickness = myThickness;
+            } else {
+                Thickness myThickness = new Thickness(1, 1, 1, 1);
+                max_box.BorderBrush = Brushes.Black;
+                max_box.BorderThickness = myThickness;
+            }
+            if (!(double.TryParse(Min, out d)) && !Min.Equals("")) {
+                Thickness myThickness = new Thickness(2, 2, 2, 2);
+                min_box.BorderBrush = Brushes.Red;
+                min_box.BorderThickness = myThickness;
+            } else {
+                Thickness myThickness = new Thickness(1, 1, 1, 1);
+                min_box.BorderBrush = Brushes.Black;
+                min_box.BorderThickness = myThickness;
+            }
         }
 
         private void OpenDelete(object sender, RoutedEventArgs e)
@@ -89,6 +130,10 @@ namespace WpfApp3.Table
             ContextMenu cm = new ContextMenu( );
             MenuItem item = new MenuItem { Header = "delete", FontSize = 20 };
             item.Click += RemoveResource;
+            item.Icon = new System.Windows.Controls.Image 
+                   { 
+                       Source = new BitmapImage(new Uri("../../resources/garbage.png", UriKind.Relative)) 
+                   };
             cm.Items.Add(item);
 
             var mouseWasDownOn = e.Source as FrameworkElement;
@@ -149,8 +194,9 @@ namespace WpfApp3.Table
             public string Eksploatisanje { get; set; }
             public string StrateskiVazan { get; set; }
             public string Mera { get; set; }
-            public double Cena { get; set; }
+            public string Cena { get; set; }
             public DateTime Datum { get; set; }
+            public string Etikete { get; set; }
 
         }
 
@@ -179,6 +225,28 @@ namespace WpfApp3.Table
             set {
                 _View = value;
                 OnPropertyChanged("View");
+            }
+        }
+
+        private string _max;
+        public string Max {
+            get {
+                return _max;
+            }
+            set {
+                _max = value;
+                OnPropertyChanged("Max");
+            }
+        }
+
+        private string _min;
+        public string Min {
+            get {
+                return _min;
+            }
+            set {
+                _min = value;
+                OnPropertyChanged("Min");
             }
         }
 
@@ -234,6 +302,19 @@ namespace WpfApp3.Table
             }
         }
 
+        private string _etikete;
+        public string Etikete {
+            get {
+                return _etikete;
+            }
+            set {
+                if (value != _etikete) {
+                    _etikete = value;
+                    OnPropertyChanged("Etikete");
+                }
+            }
+        }
+
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             //System.Windows.Application.Current.Shutdown( );
@@ -241,6 +322,24 @@ namespace WpfApp3.Table
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            double max, min;
+            double d;
+            if (Max.Equals("")) {
+                max = double.MaxValue;
+            }else if (!(double.TryParse(Max, out d))) {
+                return;
+            } else {
+                max = d;
+            }
+
+            if (Min.Equals("")) {
+                min = double.MinValue;
+            } else if (!(double.TryParse(Min, out d))) {
+                return;
+            } else {
+                min = d;
+            }
+
             List<Res> l = new List<Res>( );
             for (int i = 0; i < MainWindow.Resources.Len( ); i++) {
                 WpfApp3.Res r = MainWindow.Resources.GetResourceAtI(i);
@@ -255,10 +354,16 @@ namespace WpfApp3.Table
                 match = new Regex(Oznaka, RegexOptions.IgnoreCase);
                 Match mOznaka= match.Match(r.oznaka);
 
+                String etiketeStr = "";
+                for (int j = 0; j < r.etikete.Count; j++) {
+                    etiketeStr += r.etikete[j].oznaka + " ";
+                }
+                Double cena = double.Parse(r.cena);
                 if (((mIme.Success && mIme.Value.Length == r.ime.Length) || Ime.Equals("")) && 
                     ((mOznaka.Success && mOznaka.Value.Length == r.oznaka.Length) || Oznaka.Equals("")) &&
-                    (Tip.Equals("") || Tip.Equals(r.tip))) {
-                    l.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, TipImg = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum });
+                    (Tip.Equals("") || Tip.Equals(r.tip)) &&
+                    cena <= max && cena >= min) {
+                    l.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, TipImg = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum, Etikete = etiketeStr });
                 }
             }
             this.Close( );

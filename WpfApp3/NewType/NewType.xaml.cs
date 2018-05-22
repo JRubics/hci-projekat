@@ -159,10 +159,9 @@ namespace WpfApp3.NewType
                     }
                 }
                 if (Oznaka.Equals(" ") || Ime.Equals(" ") || Opis.Equals("") || unique) {
-                    MessageBoxResult result = MessageBox.Show("Popunite sva polja prema zahtevima", "Nemoguce dodavanje", MessageBoxButton.OK, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.OK) {
-                        return;
-                    }
+                    var s = new messageBox.Window1("Popunite sva polja prema zahtevima");
+                    s.ShowDialog( );
+                    return;
                 }
             }
             Type t = new Type(Oznaka, Ime, Opis, Ikonica);
