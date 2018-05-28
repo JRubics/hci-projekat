@@ -22,7 +22,7 @@ namespace WpfApp3.NewResource
                         return new ValidationResult(true, null);
                     }
                 }
-                return new ValidationResult(false, "Nije broj");
+                return new ValidationResult(false, "Popunite");
             } catch {
                 return new ValidationResult(false, "Unknown error occured.");
             }
@@ -37,20 +37,15 @@ namespace WpfApp3.NewResource
             foreach (Window window in Application.Current.Windows) {
                 if (window is NewResource) {
                     //return umesto counera da proverava jedno po jedno
-                    ValidationResult valid = std.Validate(((NewResource)window).Cena, null);
-                    if (!valid.IsValid) {
-                        ((NewResource)window).b_potvrdi.IsEnabled = false;
-                        ((NewResource)window).cenaErr.Content = valid.ErrorContent;
-                        counter++;
-                    } else {
-                        ((NewResource)window).cenaErr.Content = " ";
-                    }
-
-                    valid = vmbf.Validate(((NewResource)window).Oznaka, null);
+                    ValidationResult valid = vmbf.Validate(((NewResource)window).Oznaka, null);
                     if (!valid.IsValid) {
                         ((NewResource)window).b_potvrdi.IsEnabled = false;
                         ((NewResource)window).oznakaError.Content = valid.ErrorContent;
                         counter++;
+                        ((NewResource)window).imeErr.Content = " ";
+                        ((NewResource)window).opisErr.Content = " ";
+                        ((NewResource)window).cenaErr.Content = " ";
+                        return;
                     } else {
                         ((NewResource)window).oznakaError.Content = " ";
                     }
@@ -60,6 +55,11 @@ namespace WpfApp3.NewResource
                         ((NewResource)window).b_potvrdi.IsEnabled = false;
                         ((NewResource)window).oznakaError.Content = valid.ErrorContent;
                         counter++;
+
+                        ((NewResource)window).imeErr.Content = " ";
+                        ((NewResource)window).opisErr.Content = " ";
+                        ((NewResource)window).cenaErr.Content = " ";
+                        return;
                     } else {
                         ((NewResource)window).oznakaError.Content = " ";
                     }
@@ -69,6 +69,10 @@ namespace WpfApp3.NewResource
                         ((NewResource)window).b_potvrdi.IsEnabled = false;
                         ((NewResource)window).imeErr.Content = valid.ErrorContent;
                         counter++;
+                        ((NewResource)window).oznakaError.Content = " ";
+                        ((NewResource)window).opisErr.Content = " ";
+                        ((NewResource)window).cenaErr.Content = " ";
+                        return;
                     } else {
                         ((NewResource)window).imeErr.Content = " ";
                     }
@@ -78,9 +82,27 @@ namespace WpfApp3.NewResource
                         ((NewResource)window).b_potvrdi.IsEnabled = false;
                         ((NewResource)window).opisErr.Content = valid.ErrorContent;
                         counter++;
+                        ((NewResource)window).imeErr.Content = " ";
+                        ((NewResource)window).oznakaError.Content = " ";
+                        ((NewResource)window).cenaErr.Content = " ";
+                        return;
                     } else {
                         ((NewResource)window).opisErr.Content = " ";
                     }
+
+                    valid = std.Validate(((NewResource)window).Cena, null);
+                    if (!valid.IsValid) {
+                        ((NewResource)window).b_potvrdi.IsEnabled = false;
+                        ((NewResource)window).cenaErr.Content = valid.ErrorContent;
+                        counter++;
+                        ((NewResource)window).imeErr.Content = " ";
+                        ((NewResource)window).opisErr.Content = " ";
+                        ((NewResource)window).oznakaError.Content = " ";
+                        return;
+                    } else {
+                        ((NewResource)window).cenaErr.Content = " ";
+                    }
+
                     if (counter > 0) {
                         return;
                     }
@@ -92,6 +114,8 @@ namespace WpfApp3.NewResource
                         ((NewTag.NewTag)window).b_potvrdi.IsEnabled = false;
                         ((NewTag.NewTag)window).oznakaError.Content = valid.ErrorContent;
                         counter++;
+                        ((NewTag.NewTag)window).opisErr.Content = " ";
+                        return;
                     } else {
                         ((NewTag.NewTag)window).oznakaError.Content = " ";
                     }
@@ -101,6 +125,8 @@ namespace WpfApp3.NewResource
                         ((NewTag.NewTag)window).b_potvrdi.IsEnabled = false;
                         ((NewTag.NewTag)window).oznakaError.Content = valid.ErrorContent;
                         counter++;
+                        ((NewTag.NewTag)window).opisErr.Content = " ";
+                        return;
                     } else {
                         ((NewTag.NewTag)window).oznakaError.Content = " ";
                     }
@@ -110,6 +136,8 @@ namespace WpfApp3.NewResource
                         ((NewTag.NewTag)window).b_potvrdi.IsEnabled = false;
                         ((NewTag.NewTag)window).opisErr.Content = valid.ErrorContent;
                         counter++;
+                        ((NewTag.NewTag)window).oznakaError.Content = " ";
+                        return;
                     } else {
                         ((NewTag.NewTag)window).opisErr.Content = " ";
                     }
@@ -124,6 +152,9 @@ namespace WpfApp3.NewResource
                         ((NewType.NewType)window).b_potvrdi.IsEnabled = false;
                         ((NewType.NewType)window).oznakaError.Content = valid.ErrorContent;
                         counter++;
+                        ((NewType.NewType)window).imeErr.Content = " ";
+                        ((NewType.NewType)window).opisErr.Content = " ";
+                        return;
                     } else {
                         ((NewType.NewType)window).oznakaError.Content = " ";
                     }
@@ -133,6 +164,9 @@ namespace WpfApp3.NewResource
                         ((NewType.NewType)window).b_potvrdi.IsEnabled = false;
                         ((NewType.NewType)window).oznakaError.Content = valid.ErrorContent;
                         counter++;
+                        ((NewType.NewType)window).imeErr.Content = " ";
+                        ((NewType.NewType)window).opisErr.Content = " ";
+                        return;
                     } else {
                         ((NewType.NewType)window).oznakaError.Content = " ";
                     }
@@ -142,6 +176,9 @@ namespace WpfApp3.NewResource
                         ((NewType.NewType)window).b_potvrdi.IsEnabled = false;
                         ((NewType.NewType)window).imeErr.Content = valid.ErrorContent;
                         counter++;
+                        ((NewType.NewType)window).opisErr.Content = " ";
+                        ((NewType.NewType)window).oznakaError.Content = " ";
+                        return;
                     } else {
                         ((NewType.NewType)window).imeErr.Content = " ";
                     }
@@ -151,6 +188,9 @@ namespace WpfApp3.NewResource
                         ((NewType.NewType)window).b_potvrdi.IsEnabled = false;
                         ((NewType.NewType)window).opisErr.Content = valid.ErrorContent;
                         counter++;
+                        ((NewType.NewType)window).imeErr.Content = " ";
+                        ((NewType.NewType)window).oznakaError.Content = " ";
+                        return;
                     } else {
                         ((NewType.NewType)window).opisErr.Content = " ";
                     }

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -75,6 +76,7 @@ namespace WpfApp3.NewTag
                 BojaCombo.Add(Enum.GetName(typeof(Boje), b));
             }
             Boja = BojaCombo.First( );
+
             INotifyPropertyChanged tag = DataContext as INotifyPropertyChanged;
             if (tag != null)
                 tag.PropertyChanged += new PropertyChangedEventHandler(validatenew);
@@ -105,6 +107,12 @@ namespace WpfApp3.NewTag
                     OnPropertyChanged("Opis");
                 }
             }
+        }
+
+        private void LetterValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-z]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private string _oznaka;
@@ -179,6 +187,11 @@ namespace WpfApp3.NewTag
                 win.Test1 += MainWindow.Tags.GetTagAtI(i).oznaka + " "+  MainWindow.Tags.GetTagAtI(i).boja;
             }
             this.Close( );
+        }
+
+        private void ClrPcker_Background_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            //TextBox.Text = "#" + ClrPcker_Background.SelectedColor.R.ToString( ) + ClrPcker_Background.SelectedColor.G.ToString( ) + ClrPcker_Background.SelectedColor.B.ToString( );
         }
     }
 }

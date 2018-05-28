@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,6 +43,12 @@ namespace WpfApp3.NewType
         private void validatenew(object sender, PropertyChangedEventArgs e)
         {
             StringToDoubleValidationRule.validate_all(true);
+        }
+
+        private void LetterValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-z]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         public NewType(Type t)

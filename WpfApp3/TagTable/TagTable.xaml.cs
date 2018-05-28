@@ -21,6 +21,7 @@ namespace WpfApp3.TagTable
     /// </summary>
     public partial class Window1 : Window, INotifyPropertyChanged
     {
+        public ObservableCollection<Tag> tagList { get; } = new ObservableCollection<Tag>( );
         private static Tag deleteTag = null;
         public Window1()
         {
@@ -29,9 +30,10 @@ namespace WpfApp3.TagTable
             List<Tag> l = new List<Tag>( );
             for (int i = 0; i < MainWindow.Tags.Len( ); i++) {
                 l.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(i).oznaka, Opis = MainWindow.Tags.GetTagAtI(i).opis, Boja = MainWindow.Tags.GetTagAtI(i).boja });
+                tagList.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(i).oznaka, Opis = MainWindow.Tags.GetTagAtI(i).opis, Boja = MainWindow.Tags.GetTagAtI(i).boja });
             }
             Tagovi = new ObservableCollection<Tag>(l);
-            tagTable.ItemsSource = Tagovi;
+            //tagTable.ItemsSource = Tagovi;
         }
         public ObservableCollection<Tag> Tagovi {
             get;

@@ -6,9 +6,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3.TagTable"
         mc:Ignorable="d"
-        Title="Tabela etiketa" Height="300" Width="400">
-    <Grid>
-        <ListView MouseDoubleClick="openChange"  Margin="5" Name="tagTable" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top" MouseRightButtonUp="OpenDelete">
+        Title="Tabela etiketa" Height="300" Width="300">
+    <Grid HorizontalAlignment="Stretch">
+        <DataGrid Grid.Row="0" CanUserResizeColumns="True" AlternationCount="2" AlternatingRowBackground="LightGray" Margin="5" Name="tagTable"  ItemsSource="{Binding tagList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        </DataGrid>
+        <!--ListView MouseDoubleClick="openChange"  Margin="5" Name="tagTable" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top" MouseRightButtonUp="OpenDelete">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Oznaka" Width="80" DisplayMemberBinding="{Binding Oznaka, UpdateSourceTrigger=PropertyChanged}" />
@@ -16,6 +18,6 @@
                     <GridViewColumn Header="Boja" Width="120" DisplayMemberBinding="{Binding Boja, UpdateSourceTrigger=PropertyChanged}" />
                 </GridView>
             </ListView.View>
-        </ListView>
+        </-->
     </Grid>
 </Window>

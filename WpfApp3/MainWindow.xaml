@@ -70,50 +70,144 @@
         <DockPanel>
             <Grid x:Name="WorldGrid">
                 <Image Source="resources/world.png" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-                <Button Content="    Afrika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="259,172,274.6,190" Click="Button_Africa"/>
-                <Button Content="   Evropa" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="273,93,260.6,269"  Click="Button_Europe"/>
-                <Button Content=" S. Amerika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="46,93,487.6,269"  Click="Button_N_America"/>
-                <Button Content="  J. Amerika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="112,230,421.6,132"  Click="Button_S_America"/>
-                <Button Content=" Australija" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="507,266,26.6,96"  Click="Button_Oceania"/>
-                <Button Content="  Azija" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="419,105,114.6,257"  Click="Button_Asia"/>
-                <!--TextBox HorizontalAlignment="Left" Height="23" Margin="63,359,0,0" Text="{Binding Path=Test1, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Width="494"/-->
+                <Button Content="    Afrika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="259,172,274.6,190" Click="Button_Africa">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Content="   Evropa" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="273,93,260.6,269"  Click="Button_Europe">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Content=" S. Amerika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="46,93,487.6,269"  Click="Button_N_America">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Content="  J. Amerika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="112,230,421.6,132"  Click="Button_S_America">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Content=" Australija" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="507,266,26.6,96"  Click="Button_Oceania">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Content="  Azija" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="419,105,114.6,257"  Click="Button_Asia">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
             </Grid>
             <Canvas VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  x:Name="AfricaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
-                <!--Image Canvas.Left="150" Canvas.Top="00" Source="resources/africa.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" HorizontalAlignment="Left" AllowDrop="False" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" HorizontalAlignment="Left" Margin="10,10,0,0" AllowDrop="False" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
-                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" HorizontalAlignment="Left" AllowDrop="False" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Povratak na gavnu stranu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" HorizontalAlignment="Left" Margin="10,10,0,0" AllowDrop="False" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Brisanje svih resursa sa mape"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" >
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Prevucite resurs da biste ga obrisali"/>
+                    </ToolTipService.ToolTip>
+                </Image>
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="EuropeGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="135" Canvas.Top="10" Source="resources/europe.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" AllowDrop="False" Content="NAZAD" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" AllowDrop="False" Content="OČISTI" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
-                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
+                <Button Canvas.Left="10" Canvas.Top="10" AllowDrop="False" Content="NAZAD" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Povratak na gavnu stranu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Canvas.Left="10" Canvas.Top="60" AllowDrop="False" Content="OČISTI" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Brisanje svih resursa sa mape"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" >
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Prevucite resurs da biste ga obrisali"/>
+                    </ToolTipService.ToolTip>
+                </Image>
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="NAmericaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="80" Canvas.Top="00" Source="resources/north_america.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
-                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Povratak na gavnu stranu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Brisanje svih resursa sa mape"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Prevucite resurs da biste ga obrisali"/>
+                    </ToolTipService.ToolTip>
+                </Image>
                 <!--Button Canvas.Left="10" Canvas.Top="300" Content="pretraga" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Find"/-->
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="SAmericaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="160" Canvas.Top="00" Source="resources/south_america.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
-                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Povratak na gavnu stranu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Brisanje svih resursa sa mape"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Prevucite resurs da biste ga obrisali"/>
+                    </ToolTipService.ToolTip>
+                </Image>
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="AsiaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="80" Canvas.Top="00" Source="resources/asia.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
-                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Povratak na gavnu stranu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Brisanje svih resursa sa mape"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" >
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Prevucite resurs da biste ga obrisali"/>
+                    </ToolTipService.ToolTip>
+                </Image>
             </Canvas>
             <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="OceaniaGrid" Visibility="Collapsed" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove"  Drop="Image_Drop" AllowDrop="True" DragEnter="Image_DragEnter">
                 <!--Image Canvas.Left="80" Canvas.Top="00" Source="resources/oceania.png" Stretch="UniformToFill" Style="{StaticResource ResourceKey=ContinentImageStyle}"/-->
-                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back"/>
-                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear"/>
-                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False" ToolTip="Prevucite resurs da biste ga obrisali"/>
+                <Button Canvas.Left="10" Canvas.Top="10" Content="NAZAD" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Back">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Povratak na gavnu stranu"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button Canvas.Left="10" Canvas.Top="60" Content="OČISTI" AllowDrop="False" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90" Height="40" FontSize="22" FontWeight="Medium" Click="Button_Clear">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Brisanje svih resursa sa mape"/>
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Image  Canvas.Left="10" Canvas.Top="150" Source="resources/garbage.png" AllowDrop="False">
+                    <ToolTipService.ToolTip>
+                        <TextBlock FontSize="20" Text="Prevucite resurs da biste ga obrisali"/>
+                    </ToolTipService.ToolTip>
+                </Image>
             </Canvas>
         </DockPanel>
     </DockPanel>

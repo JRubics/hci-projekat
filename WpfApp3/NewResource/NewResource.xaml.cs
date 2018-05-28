@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -541,52 +542,6 @@ namespace WpfApp3.NewResource
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            /*bool unique = false;
-            if (Oznakaenabled) {
-                for (int i = 0; i < MainWindow.Typesc.Len( ); i++) {
-                    if (Oznaka.Equals(MainWindow.Typesc.GetTypeAtI(i).oznaka) || Oznaka.Equals("")) {
-                        unique = true;//greska
-                    }
-                }
-                for (int i = 0; i < MainWindow.Resources.Len( ); i++) {
-                    if (Oznaka.Equals(MainWindow.Resources.GetResourceAtI(i).oznaka) || Oznaka.Equals("")) {
-                        unique = true;//greska
-                    }
-                }
-                for (int i = 0; i < MainWindow.Tags.Len( ); i++) {
-                    if (Oznaka.Equals(MainWindow.Tags.GetTagAtI(i).oznaka) || Oznaka.Equals("")) {
-                        unique = true;//greska
-                    }
-                }
-                if (Oznaka.Equals(" ") || Ime.Equals(" ") || Opis.Equals(" ") || Cena.Equals(" ") || Oznaka.Equals("") || Ime.Equals("") || Opis.Equals("") || Cena.Equals("") || unique) {
-                    var s = new messageBox.Window1("Popunite sva polja prema zahtevima");
-                    s.ShowDialog( );
-                    return;
-                }
-                //provericenu
-                StringToDoubleValidationRule validation = new StringToDoubleValidationRule( );
-                ValidationResult valid = validation.Validate(Cena, null);
-                if (!valid.IsValid) {
-                    var s = new messageBox.Window1("RADIIII");
-                    s.ShowDialog( );
-                    return;
-                }
-            } else {
-                if (Oznaka.Equals(" ") || Ime.Equals(" ") || Opis.Equals(" ") || Cena.Equals(" ") || Oznaka.Equals("") || Ime.Equals("") || Opis.Equals("") || Cena.Equals("") || unique) {
-                    var s = new messageBox.Window1("Popunite sva polja prema zahtevima");
-                    s.ShowDialog( );
-                    return;
-                }
-                //provericenu
-                StringToDoubleValidationRule validation = new StringToDoubleValidationRule( );
-                ValidationResult valid = validation.Validate(Cena, null);
-                if (!valid.IsValid) {
-                    var s = new messageBox.Window1("RADIIII");
-                    s.ShowDialog( );
-                    return;
-                }
-            }*/
-
             String TipImg = MainWindow.Typesc.GetTypeById(Tip).ikonica;
             //TipImg = Tip;
             Res r = new Res(Oznaka, Ime,Opis, Tip, TipImg, Frekvencija,Ikonica, Obnovljiv, StrateskiVazan, Eksploatisanje, Mera, Cena, Datum);
@@ -636,9 +591,25 @@ namespace WpfApp3.NewResource
                         b.Content = newImg;
                     }
                 }
-                //dodaj sliku na dugme
-                //Button b = win.ResourcePanel.Children
-                //win.ResourcePanel.Children.RemoveAt(index);
+
+                //updare map
+                if (win.canvas != null) {
+                    foreach (var v in win.canvas.Children) {
+                        if (v is Image) {
+                            Regex reg = new Regex(@"([a-zA-Z]+)(\d+)");
+                            Match result = reg.Match((v as Image).Name);
+                            string n = result.Groups[1].Value;
+
+                            if (n.Equals(re.oznaka)) {
+                                (v as Image).Source = newImg.Source;
+                                ToolTip t = MainWindow.makeTooltip(r);
+                                (v as Image).ToolTip = t;
+                            }
+                        }
+                    }
+                }
+                //end update 
+
                 this.Close( );
             } else if (s.StartsWith("t")) {
                 for (int i = 0; i < MainWindow.Resources.Len( ); i++) {
@@ -687,6 +658,17 @@ namespace WpfApp3.NewResource
                 MainWindow.Resources.addResource(r);
                 MakeBtn(r);
             }
+        }
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void LetterValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-z]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void MakeBtn(Res r)

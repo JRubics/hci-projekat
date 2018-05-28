@@ -21,6 +21,7 @@ namespace WpfApp3.TypeTable
     /// </summary>
     public partial class Window1 : Window,INotifyPropertyChanged
     {
+        public ObservableCollection<Type> typeList { get; } = new ObservableCollection<Type>( );
         private static Type deleteType= null;
         public Window1()
         {
@@ -35,9 +36,10 @@ namespace WpfApp3.TypeTable
                     newImg = MainWindow.Resources.GetResourceAtI(i).ikonica;
                 }*/
                 l.Add(new Type( ) { Oznaka = MainWindow.Typesc.GetTypeAtI(i).oznaka, Opis = MainWindow.Typesc.GetTypeAtI(i).opis, Ime = MainWindow.Typesc.GetTypeAtI(i).ime, Ikonica = MainWindow.Typesc.GetTypeAtI(i).ikonica });
+                typeList.Add(new Type( ) { Oznaka = MainWindow.Typesc.GetTypeAtI(i).oznaka, Opis = MainWindow.Typesc.GetTypeAtI(i).opis, Ime = MainWindow.Typesc.GetTypeAtI(i).ime, Ikonica = MainWindow.Typesc.GetTypeAtI(i).ikonica });
             }
             Tipovi = new ObservableCollection<Type>(l);
-            typeTable.ItemsSource = Tipovi;
+            //typeTable.ItemsSource = Tipovi;
         }
 
         public ObservableCollection<Type> Tipovi {

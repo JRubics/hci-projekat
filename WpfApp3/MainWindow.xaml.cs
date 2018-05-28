@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,6 +40,8 @@ namespace WpfApp3
         private static TypeContainer typesc = new TypeContainer( );
         private static TagContainer tags = new TagContainer( );
         private static Button deleteButton = null;
+        private static string changeImage = null;
+        private static Image changeImg = null;
         private static Panel pom = null;
         public MainWindow()
         {
@@ -80,18 +83,6 @@ namespace WpfApp3
             pom = ResourcePanel;
         }
 
-        /*public static void TooltipShow(object sender, RoutedEventArgs e) {
-            ToolTip tooltip = new ToolTip { Content = (sender as Button).Name.Substring(1) };
-            tooltip.FontSize = 20;
-            (sender as Button).ToolTip = tooltip;
-            tooltip.IsOpen = true;
-        }
-
-        public static void TooltipHide(object sender, RoutedEventArgs e)
-        {
-            (sender as Button).ClearValue(Button.ToolTipProperty);
-        }*/
-
         public static void ButtonClickDelete(object sender, RoutedEventArgs e)
         {
             deleteButton = sender as Button;
@@ -103,6 +94,24 @@ namespace WpfApp3
                    { 
                        Source = new BitmapImage(new Uri("../../resources/garbage.png", UriKind.Relative)) 
                    };
+
+            cm.Items.Add(item);
+
+            var mouseWasDownOn = e.Source as FrameworkElement;
+
+            mouseWasDownOn.ContextMenu = cm;
+        }
+
+        public static void ImageClickChange(object sender, RoutedEventArgs e)
+        {
+            changeImage = (sender as Image).Name;
+            changeImg = (sender as Image);
+            ContextMenu cm = new ContextMenu( );
+            MenuItem item = new MenuItem { Header = "izmeni", FontSize = 20 };
+            item.Click += ButtonClick2;
+           /* item.Icon = new System.Windows.Controls.Image {
+                Source = new BitmapImage(new Uri("../../resources/garbage.png", UriKind.Relative))
+            };*/
 
             cm.Items.Add(item);
 
@@ -132,6 +141,78 @@ namespace WpfApp3
             String n = elementName.Substring(1);
             var x = new NewResource.NewResource(resources.GetResourceById(n),((Button)sender).Name);
             x.ShowDialog( );
+        }
+        public static void ButtonClick2(object sender, RoutedEventArgs e)
+        {
+            Regex re = new Regex(@"([a-zA-Z]+)(\d+)");
+            Match result = re.Match(changeImage);
+
+            string n = result.Groups[1].Value;
+
+            var x = new NewResource.NewResource(resources.GetResourceById(n), "b"+n);
+            x.ShowDialog( );
+
+            updateImageOnMap(n);
+        }
+
+        public static void updateImageOnMap(String name)
+        {
+            Res r = resources.GetResourceById(name);
+
+            System.Windows.Controls.Image newImg = new Image( );
+            try {
+                newImg.Source = new BitmapImage(new Uri(uriString: r.ikonica));
+            } catch {
+                try {
+                    newImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, r.tipImg)));
+                } catch {
+                    newImg.Source = new BitmapImage(new Uri(@"../../resources/image.png", UriKind.Relative));
+                }
+            }
+            MainWindow win = (MainWindow)Application.Current.MainWindow;
+            foreach (var v in win.canvas.Children) {
+                if (v is Image) {
+                    // var s = new messageBox(((v as Image).Name + "," + changeImage);
+                    Regex re = new Regex(@"([a-zA-Z]+)(\d+)");
+                    Match result = re.Match((v as Image).Name);
+                    string n = result.Groups[1].Value;
+
+                    result = re.Match(changeImage);
+                    string m = result.Groups[1].Value;
+                    if (n.Equals(m)) {
+                        (v as Image).Source = newImg.Source;
+                        ToolTip t = makeTooltip(r);
+                        (v as Image).ToolTip = t;
+                    }
+                }
+            }
+        }
+
+        public static ToolTip makeTooltip(Res r) {
+            ToolTip t = new ToolTip( );
+            StackPanel stack = new StackPanel( );
+            stack.Orientation = Orientation.Vertical;
+
+            StackPanel stack1 = new StackPanel( );
+            stack1.Orientation = Orientation.Horizontal;
+            stack1.Children.Add(new Label( ) { Content = "Oznaka: " + r.oznaka, FontWeight = FontWeights.Bold, FontSize = 18 });
+
+            StackPanel stack2 = new StackPanel( );
+            stack2.Orientation = Orientation.Horizontal;
+            stack2.Children.Add(new Label( ) { Content = "Etikete: ", FontWeight = FontWeights.Bold, FontSize = 18 });
+            for (int k = 0; k < r.etikete.Count; k++) {
+                stack2.Children.Add(new Label( ) { Content = r.etikete[k].oznaka, FontWeight = FontWeights.Bold, FontSize = 18, Foreground = boja_etikete(r.etikete[k]) });
+            }
+            if (r.etikete.Count == 0) {
+                stack2 = new StackPanel( );
+                stack2.Orientation = Orientation.Horizontal;
+                stack2.Children.Add(new Label( ) { Content = "Nema etikete", FontWeight = FontWeights.Bold, FontSize = 18 });
+            }
+            stack.Children.Add(stack1);
+            stack.Children.Add(stack2);
+            t.Content = stack;
+            t.FontSize = 20;
+            return t;
         }
 
         #region NotifyProperties
@@ -219,6 +300,7 @@ namespace WpfApp3
             canvas = AfricaGrid;
 
             Canvas c = this.deserialize_canvas("AfricaGrid.txt");
+
             if (c == null) {
                 return;
             }
@@ -232,7 +314,41 @@ namespace WpfApp3
                     canvas.Children.Add(el);
                 }
             }
+
+            //update img
+            updateContinentAfterDeserialization(canvas);
         }
+
+        public static void updateContinentAfterDeserialization(Canvas canvas) {
+            //update img
+            foreach (var v in canvas.Children) {
+                if (v is Image) {
+                    if ((v as Image).ActualHeight < 100) {
+                        Regex reg = new Regex(@"([a-zA-Z]+)(\d+)");
+                        Match result = reg.Match((v as Image).Name);
+                        string n = result.Groups[1].Value;
+                        Res r = resources.GetResourceById(n);
+                        if (r != null) {
+                            System.Windows.Controls.Image newImg = new Image( );
+                            try {
+                                newImg.Source = new BitmapImage(new Uri(uriString: @r.ikonica));
+                            } catch {
+                                try {
+                                    newImg.Source = new BitmapImage(new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, r.tipImg)));
+                                } catch {
+                                    newImg.Source = new BitmapImage(new Uri(@"../../resources/image.png", UriKind.Relative));
+                                }
+                            }
+
+                            (v as Image).Source = newImg.Source;
+                            ToolTip t = makeTooltip(r);
+                            (v as Image).ToolTip = t;
+                        }
+                    }
+                }
+            }
+        }
+
         private void Button_Europe(object sender, RoutedEventArgs e)
         {
             WorldGrid.Visibility = Visibility.Collapsed;
@@ -253,6 +369,8 @@ namespace WpfApp3
                     canvas.Children.Add(el);
                 }
             }
+
+            updateContinentAfterDeserialization(canvas);
         }
         private void Button_N_America(object sender, RoutedEventArgs e)
         {
@@ -274,6 +392,8 @@ namespace WpfApp3
                     canvas.Children.Add(el);
                 }
             }
+
+            updateContinentAfterDeserialization(canvas);
         }
         private void Button_S_America(object sender, RoutedEventArgs e)
         {
@@ -295,6 +415,8 @@ namespace WpfApp3
                     canvas.Children.Add(el);
                 }
             }
+
+            updateContinentAfterDeserialization(canvas);
         }
         private void Button_Asia(object sender, RoutedEventArgs e)
         {
@@ -316,6 +438,8 @@ namespace WpfApp3
                     canvas.Children.Add(el);
                 }
             }
+
+            updateContinentAfterDeserialization(canvas);
         }
         private void Button_Oceania(object sender, RoutedEventArgs e)
         {
@@ -337,6 +461,8 @@ namespace WpfApp3
                     canvas.Children.Add(el);
                 }
             }
+
+            updateContinentAfterDeserialization(canvas);
         }
 
         private void Button_Back(object sender, RoutedEventArgs e)
@@ -356,11 +482,34 @@ namespace WpfApp3
 
         private void serialize_canvas(Canvas c)
         {
-            string save = XamlWriter.Save(c);
-
-            using (StreamWriter outputFile = new StreamWriter(c.Name+".txt")) {
-                    outputFile.Write(save);
+            /*List<UIElement> slike = new List<UIElement>( );
+            List<UIElement> remove = new List<UIElement>( );
+            foreach (UIElement i in c.Children) {
+                Boolean doub = false;
+                if (i is Image) {
+                    if (((Image)i).ActualHeight < 100) {
+                        for (int j = 0; j < slike.Count; j++) {
+                            if (((Image)slike.ElementAt(j)).Name.Equals(((Image)i).Name)) {
+                                doub = true;
+                            }
+                        }
+                        if (doub) {
+                            remove.Add(i);
+                        } else {
+                            slike.Add(i);
+                        }
+                    }
+                }
             }
+            foreach (Image i in remove) {
+                c.Children.Remove(i);
+            }*/
+            string save = XamlWriter.Save(c);
+            File.WriteAllText(c.Name + ".txt", "");
+            using (StreamWriter outputFile = new StreamWriter(c.Name+".txt")) {
+                outputFile.Write(save);
+            }
+            Button_Clear(c, new RoutedEventArgs());
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -374,10 +523,18 @@ namespace WpfApp3
         {
             if (File.Exists(path)) {
                 string readText = File.ReadAllText(path);
-
                 StringReader stringReader = new StringReader(readText);
                 XmlReader xmlReader = XmlReader.Create(stringReader);
                 Canvas c = (Canvas)XamlReader.Load(xmlReader);
+
+                foreach (UIElement i in c.Children) {
+                    if (i is Image) {
+                        if (((Image)i).ActualHeight < 100) {
+                            i.MouseRightButtonUp += ImageClickChange;
+                        }
+                    }
+                }
+
                 return c;
             }
             return null;
@@ -481,13 +638,13 @@ namespace WpfApp3
 
                 ToolTip t7 = new ToolTip( );
                 t7.FontSize = 18;
-                t7.Content = "l.shift + N";
-                item6.ToolTip = t7;
+                t7.Content = "f1";
+                item7.ToolTip = t7;
 
                 ToolTip t8 = new ToolTip( );
                 t8.FontSize = 18;
-                t8.Content = "l.shift + N";
-                item6.ToolTip = t8;
+                t8.Content = "l.ctrl + O";
+                item8.ToolTip = t8;
             }
 
             cm.Items.Add(item1);
@@ -513,7 +670,7 @@ namespace WpfApp3
 
         private void OpenAbout(object sender, RoutedEventArgs r)
         {
-            System.Diagnostics.Process.Start("help.html");
+            System.Diagnostics.Process.Start("about.html");
         }
 
         //DRAG AND DROP
@@ -590,7 +747,8 @@ namespace WpfApp3
                             img.AllowDrop = false;
                             img.Width = 40;
                             img.Height = 40;
-                            //img.Name = r.tip.ToString();
+                            String unixTimestamp = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
+                            img.Name = r.oznaka + unixTimestamp;
 
                             ToolTip t = new ToolTip( );
                             StackPanel stack = new StackPanel( );
@@ -614,20 +772,29 @@ namespace WpfApp3
                             stack.Children.Add(stack1);
                             stack.Children.Add(stack2);
                             t.Content = stack;
-                            /*String etiketeStr = "etikete: ";
-                            for (int j = 0; j < r.etikete.Count; j++) {
-                                etiketeStr += r.etikete[j].oznaka + " ";
-                            }
-                            if (!etiketeStr.Equals("")) {
-                                t.Content = etiketeStr;
-                            } else {
-                                t.Content = "Nema etikete";
-                            }*/
                             t.FontSize = 20;
                             img.ToolTip = t;
 
                             Canvas.SetTop(img, r.position.Y);
                             Canvas.SetLeft(img, r.position.X);
+
+                            //TEST
+                            /*Button b1 = new Button( );
+                            b1.Content = img;
+                            Canvas.SetTop(b1, r.position.Y);
+                            Canvas.SetLeft(b1, r.position.X);
+
+                           // b1.Name = "c"+b.Name;
+                           //b1.DataContext = "asd";
+                           b1.Name = b.Name;
+
+                           Style style = this.FindResource("ResourceBtn") as Style;
+                           b1.Style = style;
+
+                           b1.MouseDoubleClick += ButtonClick2;
+                           canvas.Children.Add(b1);*/
+
+                            img.MouseRightButtonUp += ImageClickChange;
                             canvas.Children.Add(img);
 
                             Action emptyDelegate = delegate { };
@@ -642,12 +809,13 @@ namespace WpfApp3
                     Point p = e.GetPosition(canvas);
                     Canvas.SetTop(img, p.Y);
                     Canvas.SetLeft(img, p.X);
+                    img.MouseRightButtonUp += ImageClickChange;
                     canvas.Children.Add(img);
                 }
             }
         }
 
-        private SolidColorBrush boja_etikete(Tag tag)
+        public static SolidColorBrush boja_etikete(Tag tag)
         {
             SolidColorBrush b;
             if (tag.boja == "crvena") { 
@@ -763,7 +931,6 @@ namespace WpfApp3
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F1) {
-                //help
                 System.Diagnostics.Process.Start("help.html");
             } else if (e.Key == Key.R && Keyboard.IsKeyDown(Key.LeftCtrl)) {
                 Button_Click( sender,e);
@@ -781,25 +948,5 @@ namespace WpfApp3
                 System.Diagnostics.Process.Start("about.html");
             }
         }
-
-        /*private void Button_Find(object sender, RoutedEventArgs e)
-        {
-            List<UIElement> elements = new List<UIElement>( );
-            foreach (UIElement el in canvas.Children) {
-                if (el is Image) {
-                    Image img = el as Image;
-                    String t = GetToolTip(img);
-                    if (!t.Equals("as")) {
-                        elements.Add(el);
-                    }
-                }
-            }
-            foreach (UIElement el in elements) {
-                if (el is Image) {
-                    if ((el as Image).ActualHeight < 100)
-                        canvas.Children.Remove(el);
-                }
-            }
-        }*/
     }
 }

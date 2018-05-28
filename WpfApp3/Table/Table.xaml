@@ -27,7 +27,7 @@
             <Setter Property="MaxLength" Value="50"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
@@ -36,42 +36,41 @@
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0" MouseDoubleClick="openChange" MouseRightButtonUp="OpenDelete" Margin="5" Name="resourceTable" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Oznaka" Width="80" DisplayMemberBinding="{Binding Oznaka, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Ime" Width="120" DisplayMemberBinding="{Binding Ime, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Opis" Width="180" DisplayMemberBinding="{Binding Opis, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Tip" Width="120" DisplayMemberBinding="{Binding Tip, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Frekvencija" Width="120" DisplayMemberBinding="{Binding Frekvencija, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Ikonica" Width="180" DisplayMemberBinding="{Binding Ikonica, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Obnovljivost" Width="80" DisplayMemberBinding="{Binding Obnovljiv, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Eksploatisanje" Width="80" DisplayMemberBinding="{Binding Eksploatisanje, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Strateska vaznost" Width="80" DisplayMemberBinding="{Binding StrateskiVazan, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Mera" Width="80" DisplayMemberBinding="{Binding Mera, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Cena" Width="120" DisplayMemberBinding="{Binding Cena, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Datum" Width="220" DisplayMemberBinding="{Binding Datum, UpdateSourceTrigger=PropertyChanged}" />
-                    <GridViewColumn Header="Etikete" Width="150" DisplayMemberBinding="{Binding Etikete, UpdateSourceTrigger=PropertyChanged}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button FontSize="20" ToolTip="l.ctrl + P" FontWeight="Medium" Content="Pretraga" HorizontalAlignment="Left" Margin="600,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118" Click="Button_Click" Height="37"/>
-        <Button Content="Cela tabela" ToolTip="l.ctrl + C" FontSize="20" HorizontalAlignment="Left" Margin="600,40,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118" Click="Button_Full"/>
+        <DataGrid Grid.Row="0" CanUserResizeColumns="True" AlternationCount="2" AlternatingRowBackground="LightGray" Margin="5" Name="resourceTable"  ItemsSource="{Binding listRes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top" >
+        </DataGrid>
+        <Button FontSize="20" FontWeight="Medium" Content="Pretraga" HorizontalAlignment="Left" Margin="600,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118" Click="Button_Click" Height="37">
+            <ToolTipService.ToolTip>
+                <TextBlock FontSize="20" Text="l.ctrl + P"/>
+            </ToolTipService.ToolTip>
+        </Button>
+        <Button Content="Cela tabela" FontSize="20" HorizontalAlignment="Left" Margin="600,40,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118" Click="Button_Full">
+            <ToolTipService.ToolTip>
+                <TextBlock FontSize="20" Text="l.ctrl + C"/>
+            </ToolTipService.ToolTip>
+        </Button>
 
         <Label Content="Ime" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
-        <TextBox HorizontalAlignment="Left" Height="33" Margin="55,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Ime, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="140" Style="{StaticResource ResourceKey=NewResTextBoxStyle}"/>
+        <TextBox HorizontalAlignment="Left" TextChanged="TxtSearchText_TextChanged" Height="33" Margin="55,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Ime, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="140" Style="{StaticResource ResourceKey=NewResTextBoxStyle}"/>
 
         <Label Content="Oznaka" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
-        <TextBox HorizontalAlignment="Left" Height="33" Margin="85,50,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Oznaka, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="110" Style="{StaticResource ResourceKey=NewResTextBoxStyle}" RenderTransformOrigin="1.289,0.383"/>
+        <TextBox HorizontalAlignment="Left" TextChanged="TxtSearchText_TextChanged" Height="33" Margin="85,50,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Oznaka, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="110" Style="{StaticResource ResourceKey=NewResTextBoxStyle}" RenderTransformOrigin="1.289,0.383"/>
 
 
         <Label Content="Tip" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,10,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
-        <ComboBox FontSize="18" Margin="280,10,324.6,86.4" ItemsSource="{Binding Path=TipoviCombo}" SelectedItem="{Binding Path=Tip}" RenderTransformOrigin="-1.062,5.363" Grid.Row="1"/>
+        <ComboBox FontSize="18" SelectionChanged="Combobox_changed" Margin="280,10,324.6,86.4" ItemsSource="{Binding Path=TipoviCombo}" SelectedItem="{Binding Path=Tip}" RenderTransformOrigin="-1.062,5.363" Grid.Row="1"/>
 
         <Label Content="Cena($) min:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,59,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
-        <TextBox x:Name="min_box" HorizontalAlignment="Left" Height="33" Margin="323,59,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Min, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="75" Style="{StaticResource ResourceKey=NewResTextBoxStyle}" RenderTransformOrigin="1.289,0.383"/>
+        <TextBox x:Name="min_box" HorizontalAlignment="Left" TextChanged="TxtSearchText_TextChanged" PreviewTextInput="NumberValidationTextBox" Height="33" Margin="323,59,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Min, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="75" Style="{StaticResource ResourceKey=NewResTextBoxStyle}" RenderTransformOrigin="1.289,0.383"/>
         <Label Content="max:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="403,59,0,0" Grid.Row="1" Style="{StaticResource ResourceKey=NewResStyle}"/>
 
-        <TextBox x:Name="max_box" HorizontalAlignment="Left" Height="33" Margin="456,59,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Max, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="75" Style="{StaticResource ResourceKey=NewResTextBoxStyle}" RenderTransformOrigin="1.289,0.383"/>
+        <TextBox x:Name="max_box" HorizontalAlignment="Left" TextChanged="TxtSearchText_TextChanged" Height="33" PreviewTextInput="NumberValidationTextBox" Margin="456,59,0,0" Grid.Row="1"  TextWrapping="Wrap" Text="{Binding Path=Max, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="75" Style="{StaticResource ResourceKey=NewResTextBoxStyle}" RenderTransformOrigin="1.289,0.383"/>
+        <CheckBox x:Name="chack_filter" Content="Filtriranje" Checked="CheckBoxTrue" Unchecked="CheckBoxFalse" HorizontalAlignment="Left" Margin="600,10,0,0" Grid.Row="1" VerticalAlignment="Top">
+            <CheckBox.LayoutTransform>
+                <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
+            </CheckBox.LayoutTransform>
+            <ToolTipService.ToolTip>
+                <TextBlock FontSize="20" Text="Filtriranje se vrši u realnom vremenu"/>
+            </ToolTipService.ToolTip>
+        </CheckBox>
     </Grid>
 </Window>
