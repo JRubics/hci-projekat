@@ -45,8 +45,8 @@ namespace WpfApp3.Table
                 } else {
                     newImg = MainWindow.Resources.GetResourceAtI(i).ikonica;
                 }
-                l.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, TipImg = MainWindow.Resources.GetResourceAtI(i).tipImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica= newImg, Obnovljiv = o, Eksploatisanje = e, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum, Etikete = etiketeStr });
-                listRes.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, TipImg = MainWindow.Resources.GetResourceAtI(i).tipImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica = newImg, Obnovljiv = o, Eksploatisanje = e, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum, Etikete = etiketeStr });
+                l.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, Slika = newImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica= newImg, Obnovljiv = o, Eksploatisanje = e, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum, Etikete = etiketeStr });
+                listRes.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, Slika = newImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica = newImg, Obnovljiv = o, Eksploatisanje = e, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum, Etikete = etiketeStr });
             }
             Resursi = new ObservableCollection<Res>(l);
             //resourceTable.ItemsSource = Resursi;
@@ -133,8 +133,8 @@ namespace WpfApp3.Table
                         (r.oznaka.StartsWith(Oznaka) || Oznaka.Equals("")) &&
                         (Tip.Equals("") || Tip.Equals(r.tip)) &&
                         cena <= max && cena >= min) {
-                        l.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, TipImg = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum, Etikete = etiketeStr });
-                        listRes.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, TipImg = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum, Etikete = etiketeStr });
+                        l.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, Slika = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum, Etikete = etiketeStr });
+                        listRes.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, Slika = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum, Etikete = etiketeStr });
                     }
                 }
             }
@@ -260,7 +260,7 @@ namespace WpfApp3.Table
             public string Opis { get; set; }
             public string Oznaka { get; set; }
             public string Tip { get; set; }
-            public string TipImg { get; set; }
+            public string Slika { get; set; }
             public string Frekvencija { get; set; }
             public string Ikonica { get; set; }
             public string Obnovljiv { get; set; }
@@ -437,8 +437,8 @@ namespace WpfApp3.Table
                     ((mOznaka.Success && mOznaka.Value.Length == r.oznaka.Length) || Oznaka.Equals("")) &&
                     (Tip.Equals("") || Tip.Equals(r.tip)) &&
                     cena <= max && cena >= min) {
-                    l.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, TipImg = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum, Etikete = etiketeStr });
-                    listRes.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, TipImg = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum, Etikete = etiketeStr });
+                    l.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, Slika = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum, Etikete = etiketeStr });
+                    listRes.Add(new Res( ) { Ime = r.ime, Opis = r.opis, Oznaka = r.oznaka, Tip = r.tip, Slika = r.tipImg, Frekvencija = r.frekvencija, Ikonica = r.oznaka, Obnovljiv = o, Eksploatisanje = ek, StrateskiVazan = s, Mera = r.mera, Cena = r.cena, Datum = r.datum, Etikete = etiketeStr });
                 }
             }
             /*this.Close( );
@@ -476,8 +476,8 @@ namespace WpfApp3.Table
                 } else {
                     newImg = MainWindow.Resources.GetResourceAtI(i).ikonica;
                 }
-                l.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, TipImg = MainWindow.Resources.GetResourceAtI(i).tipImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica = newImg, Obnovljiv = o, Eksploatisanje = e1, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum, Etikete = etiketeStr });
-                listRes.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, TipImg = MainWindow.Resources.GetResourceAtI(i).tipImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica = newImg, Obnovljiv = o, Eksploatisanje = e1, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum, Etikete = etiketeStr });
+                l.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, Slika = newImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica = newImg, Obnovljiv = o, Eksploatisanje = e1, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum, Etikete = etiketeStr });
+                listRes.Add(new Res( ) { Ime = MainWindow.Resources.GetResourceAtI(i).ime, Opis = MainWindow.Resources.GetResourceAtI(i).opis, Oznaka = MainWindow.Resources.GetResourceAtI(i).oznaka, Tip = MainWindow.Resources.GetResourceAtI(i).tip, Slika = newImg, Frekvencija = MainWindow.Resources.GetResourceAtI(i).frekvencija, Ikonica = newImg, Obnovljiv = o, Eksploatisanje = e1, StrateskiVazan = s, Mera = MainWindow.Resources.GetResourceAtI(i).mera, Cena = MainWindow.Resources.GetResourceAtI(i).cena, Datum = MainWindow.Resources.GetResourceAtI(i).datum, Etikete = etiketeStr });
             }
 
             Ime = "";

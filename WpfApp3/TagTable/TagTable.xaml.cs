@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,17 +24,20 @@ namespace WpfApp3.TagTable
     {
         public ObservableCollection<Tag> tagList { get; } = new ObservableCollection<Tag>( );
         private static Tag deleteTag = null;
+        
         public Window1()
         {
             InitializeComponent();
             this.DataContext = this;
+
             List<Tag> l = new List<Tag>( );
             for (int i = 0; i < MainWindow.Tags.Len( ); i++) {
-                l.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(i).oznaka, Opis = MainWindow.Tags.GetTagAtI(i).opis, Boja = MainWindow.Tags.GetTagAtI(i).boja });
-                tagList.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(i).oznaka, Opis = MainWindow.Tags.GetTagAtI(i).opis, Boja = MainWindow.Tags.GetTagAtI(i).boja });
+                SolidColorBrush bojaboja = new SolidColorBrush((Color)ColorConverter.ConvertFromString(MainWindow.Tags.GetTagAtI(i).boja));
+                l.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(i).oznaka, Opis = MainWindow.Tags.GetTagAtI(i).opis, Boja =bojaboja});
+                tagList.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(i).oznaka, Opis = MainWindow.Tags.GetTagAtI(i).opis, Boja = bojaboja});
             }
             Tagovi = new ObservableCollection<Tag>(l);
-            //tagTable.ItemsSource = Tagovi;
+            tagTable.ItemsSource = Tagovi;
         }
         public ObservableCollection<Tag> Tagovi {
             get;
@@ -44,7 +48,7 @@ namespace WpfApp3.TagTable
         {
             public string Oznaka { get; set; }
             public string Opis { get; set; }
-            public string Boja { get; set; }
+            public SolidColorBrush Boja { get; set; }
         }
 
         public void RemoveTag(object sender, RoutedEventArgs e)
@@ -52,10 +56,25 @@ namespace WpfApp3.TagTable
             String id = deleteTag.Oznaka;
 
             //dodaj proveru da ne sme da brise ako se igde koristi
+            for (int i = 0; i < MainWindow.Resources.Len( ); i++) {
+                for (int j = 0; j < MainWindow.Resources.GetResourceAtI(i).etikete.Count; j++) {
+                    if (MainWindow.Resources.GetResourceAtI(i).etikete[j].oznaka.Equals(id)) {
+                        var s = new messageBox.Window1("Ne možete obrisati etiketu koja je u upotrebi");
+                        s.ShowDialog( );
+                        return;
+                    }
+                }
+            }
             MainWindow.Tags.RemoveTagById(id);
-            this.Close( );
-            var l = new TagTable.Window1( );
-            l.ShowDialog( );
+
+            List<Tag> l = new List<Tag>( );
+            for (int k = 0; k < MainWindow.Tags.Len( ); k++) {
+                SolidColorBrush bojaboja = new SolidColorBrush((Color)ColorConverter.ConvertFromString(MainWindow.Tags.GetTagAtI(k).boja));
+                l.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(k).oznaka, Opis = MainWindow.Tags.GetTagAtI(k).opis, Boja = bojaboja });
+                tagList.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(k).oznaka, Opis = MainWindow.Tags.GetTagAtI(k).opis, Boja = bojaboja });
+            }
+            Tagovi = new ObservableCollection<Tag>(l);
+            tagTable.ItemsSource = Tagovi;
         }
 
         private void openChange(object sender, RoutedEventArgs e)
@@ -73,9 +92,32 @@ namespace WpfApp3.TagTable
                 }
                 var x = new NewTag.NewTag(MainWindow.Tags.GetTagAtI(n));
                 x.ShowDialog( );
-                this.Close( );
-                var l = new TagTable.Window1( );
-                l.ShowDialog( );
+
+                List<Tag> l = new List<Tag>( );
+                for (int k = 0; k < MainWindow.Tags.Len( ); k++) {
+                    SolidColorBrush bojaboja = new SolidColorBrush((Color)ColorConverter.ConvertFromString(MainWindow.Tags.GetTagAtI(k).boja));
+                    l.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(k).oznaka, Opis = MainWindow.Tags.GetTagAtI(k).opis, Boja = bojaboja });
+                    tagList.Add(new Tag( ) { Oznaka = MainWindow.Tags.GetTagAtI(k).oznaka, Opis = MainWindow.Tags.GetTagAtI(k).opis, Boja = bojaboja });
+                }
+                Tagovi = new ObservableCollection<Tag>(l);
+                tagTable.ItemsSource = Tagovi;
+
+                MainWindow win = (MainWindow)Application.Current.MainWindow;
+                if (win.canvas != null) {
+                    foreach (var v in win.canvas.Children) {
+                        if (v is Image) {
+                            Regex reg = new Regex(@"([a-zA-Z]+)(\d+)");
+                            Match result = reg.Match((v as Image).Name);
+                            string z = result.Groups[1].Value;
+
+                            if (MainWindow.Resources.GetResourceById(z) != null) {
+                                ToolTip t = MainWindow.makeTooltip(MainWindow.Resources.GetResourceById(z));
+                                (v as Image).ToolTip = t;
+                            }
+                            
+                        }
+                    }
+                }
             }
         }
 

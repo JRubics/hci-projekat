@@ -219,6 +219,22 @@ namespace WpfApp3.NewType
                                 b.Content = newImg;
                             }
                         }
+
+                        if (win.canvas != null) {
+                            foreach (var v in win.canvas.Children) {
+                                if (v is Image) {
+                                    Regex reg = new Regex(@"([a-zA-Z]+)(\d+)");
+                                    Match result = reg.Match((v as Image).Name);
+                                    string n = result.Groups[1].Value;
+
+                                    if (n.Equals(re.oznaka)) {
+                                        (v as Image).Source = newImg.Source;
+                                        ToolTip tool = MainWindow.makeTooltip(re);
+                                        (v as Image).ToolTip = tool;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             } else {

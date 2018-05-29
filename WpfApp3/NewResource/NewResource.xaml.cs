@@ -81,7 +81,7 @@ namespace WpfApp3.NewResource
             Datum = r.datum;
             items = new ObservableCollection<Item>( );
             for (int i = 0; i < MainWindow.Tags.Len( ); i++) {
-                Item it = new Item(MainWindow.Tags.GetTagAtI(i).oznaka, MainWindow.Tags.GetTagAtI(i).boja, MainWindow.Tags.GetTagAtI(i).opis);
+                Item it = new Item(MainWindow.Tags.GetTagAtI(i).oznaka, (Color)ColorConverter.ConvertFromString(MainWindow.Tags.GetTagAtI(i).boja), MainWindow.Tags.GetTagAtI(i).opis);
 
                 for(int j = 0; j < r.etikete.Count; j++) {
                     if (r.etikete.ElementAt(j).oznaka == it.TipOzn) {
@@ -161,7 +161,7 @@ namespace WpfApp3.NewResource
 
             items = new ObservableCollection<Item>();
             for (int i = 0; i < MainWindow.Tags.Len(); i++) {
-                items.Add(new Item(MainWindow.Tags.GetTagAtI(i).oznaka, MainWindow.Tags.GetTagAtI(i).boja, MainWindow.Tags.GetTagAtI(i).opis));
+                items.Add(new Item(MainWindow.Tags.GetTagAtI(i).oznaka, (Color)ColorConverter.ConvertFromString(MainWindow.Tags.GetTagAtI(i).boja), MainWindow.Tags.GetTagAtI(i).opis));
             }
 
             if (MainWindow.Tags.Len( ) > 0) {
@@ -182,24 +182,16 @@ namespace WpfApp3.NewResource
         public class Item
         {
             public string TipOzn { get; set; }
-            public string TipBoja { get; set; }
+            public Color TipBoja { get; set; }
             public string TipBackground { get; set; }
             public string TipOpis { get; set; }
             public bool IsChacked { get; set; }
-            public Item(string t, string b,string o) {
+            public Item(string t, Color b,string o) {
                 TipOzn = t;
                 TipBoja = b;
                 TipOpis = o;
                 IsChacked = false;
-                if (TipBoja == "crvena") {
-                    TipBackground = "Red";
-                }else if (TipBoja == "zelena") {
-                    TipBackground = "Green";
-                }else if (TipBoja == "plava") {
-                    TipBackground = "Blue";
-                } else if (TipBoja == "žuta") {
-                    TipBackground = "Yellow";
-                }
+                TipBackground = b.ToString();
             }
         }
 
@@ -649,6 +641,21 @@ namespace WpfApp3.NewResource
                     String pom = (b.Name).Substring(1);
                     if (pom == re.oznaka) {
                         b.Content = newImg;
+                    }
+                }
+                if (win.canvas != null) {
+                    foreach (var v in win.canvas.Children) {
+                        if (v is Image) {
+                            Regex reg = new Regex(@"([a-zA-Z]+)(\d+)");
+                            Match result = reg.Match((v as Image).Name);
+                            string n = result.Groups[1].Value;
+
+                            if (n.Equals(re.oznaka)) {
+                                (v as Image).Source = newImg.Source;
+                                ToolTip t = MainWindow.makeTooltip(r);
+                                (v as Image).ToolTip = t;
+                            }
+                        }
                     }
                 }
                 this.Close( );

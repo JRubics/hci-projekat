@@ -24,7 +24,6 @@ namespace WpfApp3.NewTag
     /// </summary>
     public partial class NewTag : Window, INotifyPropertyChanged
     {
-        public ObservableCollection<string> BojaCombo { get; set; }
         public static string s = "";
         public bool Oznakaenabled = true;
         public NewTag(Tag t)
@@ -40,13 +39,6 @@ namespace WpfApp3.NewTag
             Oznaka = t.oznaka;
             Opis = t.opis;
 
-            BojaCombo = new ObservableCollection<string>( );
-            foreach (Boje b in Enum.GetValues(typeof(Boje))) {
-                if (Enum.GetName(typeof(Boje), b) == "END") {
-                    break;
-                }
-                BojaCombo.Add(Enum.GetName(typeof(Boje), b));
-            }
             Boja = t.boja;
             INotifyPropertyChanged tag = DataContext as INotifyPropertyChanged;
             if (tag != null)
@@ -68,14 +60,7 @@ namespace WpfApp3.NewTag
             Oznaka = "";
             Opis = "";
 
-            BojaCombo = new ObservableCollection<string>( );
-            foreach (Boje b in Enum.GetValues(typeof(Boje))) {
-                if (Enum.GetName(typeof(Boje), b) == "END") {
-                    break;
-                }
-                BojaCombo.Add(Enum.GetName(typeof(Boje), b));
-            }
-            Boja = BojaCombo.First( );
+            Boja = Colors.Blue.ToString();
 
             INotifyPropertyChanged tag = DataContext as INotifyPropertyChanged;
             if (tag != null)
@@ -128,8 +113,8 @@ namespace WpfApp3.NewTag
             }
         }
 
-        private string _boja;
-        public string Boja {
+        private String _boja;
+        public String Boja {
             get {
                 return _boja;
             }
@@ -167,7 +152,8 @@ namespace WpfApp3.NewTag
                     return;
                 }
             }
-            Tag t = new Tag(Oznaka, Opis, Boja);
+
+            Tag t = new Tag(Oznaka, Opis, Boja.ToString());
             if (s.Equals("c")) {
                 Tag tt = MainWindow.Tags.GetTagById(Oznaka);
                 tt.boja = t.boja;
@@ -183,6 +169,23 @@ namespace WpfApp3.NewTag
                 MainWindow.Tags.addTag(t);
             }
             MainWindow win = (MainWindow)Application.Current.MainWindow;
+
+            //update mape
+            /*if (win.canvas != null) {
+                foreach (var v in win.canvas.Children) {
+                    if (v is Image) {
+                        Regex reg = new Regex(@"([a-zA-Z]+)(\d+)");
+                        Match result = reg.Match((v as Image).Name);
+                        string n = result.Groups[1].Value;
+                        Res r = MainWindow.Resources.GetResourceById(n);
+                        if (r != null) {
+                            ToolTip tool = MainWindow.makeTooltip(r);
+                            (v as Image).ToolTip = tool;
+                        }
+                    }
+                }
+            }*/
+
             for (int i = 0; i < MainWindow.Tags.Len( ); i++) {
                 win.Test1 += MainWindow.Tags.GetTagAtI(i).oznaka + " "+  MainWindow.Tags.GetTagAtI(i).boja;
             }

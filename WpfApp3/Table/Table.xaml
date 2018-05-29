@@ -36,7 +36,7 @@
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0" CanUserResizeColumns="True" AlternationCount="2" AlternatingRowBackground="LightGray" Margin="5" Name="resourceTable"  ItemsSource="{Binding listRes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top" >
+        <DataGrid Grid.Row="0" CanUserResizeColumns="True" AlternationCount="2" Margin="5" Name="resourceTable"  ItemsSource="{Binding listRes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top" >
         </DataGrid>
         <Button FontSize="20" FontWeight="Medium" Content="Pretraga" HorizontalAlignment="Left" Margin="600,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118" Click="Button_Click" Height="37">
             <ToolTipService.ToolTip>

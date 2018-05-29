@@ -1,11 +1,11 @@
 ﻿<Window x:Class="WpfApp3.NewTag.NewTag"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3.NewTag"
         xmlns:val="clr-namespace:WpfApp3.NewResource"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Icon="../resources/earth-globe.png"
         Title="Etiketa" Height="330" Width="330" MaxWidth="350" MaxHeight="350">
@@ -50,6 +50,7 @@
                 <Label  Width="120" HorizontalAlignment="Left" Content="Boja" Margin="20" Style="{StaticResource ResourceKey=NewResStyle}"/>
                 <!--ComboBox FontSize="16" ItemsSource="{Binding Path=BojaCombo}" SelectedItem="{Binding Path=Boja}" Height="30" Width="120"/-->
                 <!--xctk:ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged"></-->
+                <xctk:ColorPicker x:Name="ColorPickerEtiketa" Margin="0 20 25 20" Grid.Column="4" Grid.Row="0" SelectedColor="{Binding Boja}"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical">

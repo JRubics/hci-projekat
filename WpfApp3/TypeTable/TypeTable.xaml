@@ -8,9 +8,9 @@
         mc:Ignorable="d"
         Title="Tabela tipova" Height="300" Width="500">
     <Grid>
-        <DataGrid Grid.Row="0" CanUserResizeColumns="True" AlternationCount="2" AlternatingRowBackground="LightGray" Margin="5" Name="tagTable"  ItemsSource="{Binding typeList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Top" >
-        </DataGrid>
-        <!--ListView MouseDoubleClick="openChange" MouseRightButtonUp="OpenDelete" Margin="5" Name="typeTable" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <!--DataGrid Grid.Row="0" CanUserResizeColumns="True" AlternationCount="2" AlternatingRowBackground="LightGray" Margin="5" Name="tagTable"  ItemsSource="{Binding typeList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Top" >
+        </-->
+        <ListView MouseDoubleClick="openChange" MouseRightButtonUp="OpenDelete" Margin="5" Name="typeTable" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Oznaka" Width="80" DisplayMemberBinding="{Binding Oznaka, UpdateSourceTrigger=PropertyChanged}" />
@@ -19,6 +19,6 @@
                     <GridViewColumn Header="Ikonica" Width="180" DisplayMemberBinding="{Binding Ikonica, UpdateSourceTrigger=PropertyChanged}" />
                 </GridView>
             </ListView.View>
-        </-->
+        </ListView >
     </Grid>
 </Window>

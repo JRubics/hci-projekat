@@ -14,7 +14,7 @@ namespace WpfApp3
         public String opis;
         public String boja;
 
-        public Tag(string oznaka, string opis, string boja)
+        public Tag(string oznaka, string opis, String boja)
         {
             this.oznaka = oznaka;
             this.opis = opis;

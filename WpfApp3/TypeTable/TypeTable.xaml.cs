@@ -29,17 +29,11 @@ namespace WpfApp3.TypeTable
             this.DataContext = this;
             List<Type> l = new List<Type>( );
             for (int i = 0; i < MainWindow.Typesc.Len( ); i++) {
-                /*String newImg = "";
-                if (MainWindow.Resources.GetResourceAtI(i).ikonica.Equals("")) {
-                    newImg = MainWindow.Resources.GetResourceAtI(i).tipImg;
-                } else {
-                    newImg = MainWindow.Resources.GetResourceAtI(i).ikonica;
-                }*/
                 l.Add(new Type( ) { Oznaka = MainWindow.Typesc.GetTypeAtI(i).oznaka, Opis = MainWindow.Typesc.GetTypeAtI(i).opis, Ime = MainWindow.Typesc.GetTypeAtI(i).ime, Ikonica = MainWindow.Typesc.GetTypeAtI(i).ikonica });
                 typeList.Add(new Type( ) { Oznaka = MainWindow.Typesc.GetTypeAtI(i).oznaka, Opis = MainWindow.Typesc.GetTypeAtI(i).opis, Ime = MainWindow.Typesc.GetTypeAtI(i).ime, Ikonica = MainWindow.Typesc.GetTypeAtI(i).ikonica });
             }
             Tipovi = new ObservableCollection<Type>(l);
-            //typeTable.ItemsSource = Tipovi;
+            typeTable.ItemsSource = Tipovi;
         }
 
         public ObservableCollection<Type> Tipovi {
@@ -59,20 +53,25 @@ namespace WpfApp3.TypeTable
         {
             var item = (sender as ListView).SelectedItem;
             if (item != null) {
-                int i = 0;
+                int k = 0;
                 int n = 0;
                 foreach (Type r in Tipovi) {
                     if (item == r) {
-                        n = i;
+                        n = k;
                         break;
                     }
-                    i++;
+                    k++;
                 }
                 var x = new NewType.NewType(MainWindow.Typesc.GetTypeAtI(n));
                 x.ShowDialog( );
-                this.Close( );
-                var l = new TypeTable.Window1( );
-                l.ShowDialog( );
+
+                List<Type> l = new List<Type>( );
+                for (int i = 0; i < MainWindow.Typesc.Len( ); i++) {
+                    l.Add(new Type( ) { Oznaka = MainWindow.Typesc.GetTypeAtI(i).oznaka, Opis = MainWindow.Typesc.GetTypeAtI(i).opis, Ime = MainWindow.Typesc.GetTypeAtI(i).ime, Ikonica = MainWindow.Typesc.GetTypeAtI(i).ikonica });
+                    typeList.Add(new Type( ) { Oznaka = MainWindow.Typesc.GetTypeAtI(i).oznaka, Opis = MainWindow.Typesc.GetTypeAtI(i).opis, Ime = MainWindow.Typesc.GetTypeAtI(i).ime, Ikonica = MainWindow.Typesc.GetTypeAtI(i).ikonica });
+                }
+                Tipovi = new ObservableCollection<Type>(l);
+                typeTable.ItemsSource = Tipovi;
             }
         }
 
@@ -122,9 +121,14 @@ namespace WpfApp3.TypeTable
                 }
             }
             MainWindow.Typesc.RemoveTypeById(id);
-            this.Close( );
-            var l = new TypeTable.Window1( );
-            l.ShowDialog( );
+
+            List<Type> l = new List<Type>( );
+            for (int i = 0; i < MainWindow.Typesc.Len( ); i++) {
+                l.Add(new Type( ) { Oznaka = MainWindow.Typesc.GetTypeAtI(i).oznaka, Opis = MainWindow.Typesc.GetTypeAtI(i).opis, Ime = MainWindow.Typesc.GetTypeAtI(i).ime, Ikonica = MainWindow.Typesc.GetTypeAtI(i).ikonica });
+                typeList.Add(new Type( ) { Oznaka = MainWindow.Typesc.GetTypeAtI(i).oznaka, Opis = MainWindow.Typesc.GetTypeAtI(i).opis, Ime = MainWindow.Typesc.GetTypeAtI(i).ime, Ikonica = MainWindow.Typesc.GetTypeAtI(i).ikonica });
+            }
+            Tipovi = new ObservableCollection<Type>(l);
+            typeTable.ItemsSource = Tipovi;
         }
     }
 }

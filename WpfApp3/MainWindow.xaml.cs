@@ -201,7 +201,7 @@ namespace WpfApp3
             stack2.Orientation = Orientation.Horizontal;
             stack2.Children.Add(new Label( ) { Content = "Etikete: ", FontWeight = FontWeights.Bold, FontSize = 18 });
             for (int k = 0; k < r.etikete.Count; k++) {
-                stack2.Children.Add(new Label( ) { Content = r.etikete[k].oznaka, FontWeight = FontWeights.Bold, FontSize = 18, Foreground = boja_etikete(r.etikete[k]) });
+                stack2.Children.Add(new Label( ) { Content = r.etikete[k].oznaka, FontWeight = FontWeights.Bold, FontSize = 18, Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString((r.etikete[k]).boja ))});
             }
             if (r.etikete.Count == 0) {
                 stack2 = new StackPanel( );
@@ -762,7 +762,7 @@ namespace WpfApp3
                             stack2.Orientation = Orientation.Horizontal;
                             stack2.Children.Add(new Label( ) { Content = "Etikete: ", FontWeight = FontWeights.Bold, FontSize = 18 });
                             for (int k = 0; k < r.etikete.Count; k++) {
-                                stack2.Children.Add(new Label( ) { Content = r.etikete[k].oznaka, FontWeight = FontWeights.Bold, FontSize = 18, Foreground = boja_etikete(r.etikete[k]) });
+                                stack2.Children.Add(new Label( ) { Content = r.etikete[k].oznaka, FontWeight = FontWeights.Bold, FontSize = 18, Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString((r.etikete[k]).boja) )});
                             }
                             if (r.etikete.Count == 0) {
                                 stack2 = new StackPanel( );
@@ -815,7 +815,7 @@ namespace WpfApp3
             }
         }
 
-        public static SolidColorBrush boja_etikete(Tag tag)
+       /* public static SolidColorBrush boja_etikete(Tag tag)
         {
             SolidColorBrush b;
             if (tag.boja == "crvena") { 
@@ -834,7 +834,7 @@ namespace WpfApp3
                 b = new SolidColorBrush(Colors.Black);
                 return b;
             }
-        }
+        }*/
 
         private void ehDrop(object sender, DragEventArgs e)
         {
