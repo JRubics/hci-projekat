@@ -62,7 +62,7 @@
                 <Button BorderBrush="{x:Null}" Content="MENI" DockPanel.Dock="Left" FontSize="20" FontWeight="Bold" Click="Button_Meni"/>
             </DockPanel>
             <ScrollViewer Background="DarkGray" VerticalAlignment="Stretch" BorderThickness="0" PreviewMouseLeftButtonDown="Resource_PreviewMouseLeftButtonDown" PreviewMouseMove="Resource_PreviewMouseMove" >
-                <WrapPanel DockPanel.Dock="Top" Orientation="Vertical" VerticalAlignment="Stretch" Name="ResourcePanel">
+                <WrapPanel Visibility="{Binding Path=WV}" DockPanel.Dock="Top" Orientation="Vertical" VerticalAlignment="Stretch" Name="ResourcePanel">
                 </WrapPanel>
             </ScrollViewer>
         </DockPanel>
@@ -70,34 +70,34 @@
         <DockPanel>
             <Grid x:Name="WorldGrid">
                 <Image Source="resources/world.png" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-                <Button Content="    Afrika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="259,172,274.6,190" Click="Button_Africa">
+                <Button Content="    Afrika" AllowDrop="True" Drop="ContinentDrop" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="259,172,274.6,190" Click="Button_Africa">
                     <ToolTipService.ToolTip>
-                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                        <TextBlock FontSize="16" Text="Uđite u pregled Afrike da biste preneli resurse na mapu"/>
                     </ToolTipService.ToolTip>
                 </Button>
-                <Button Content="   Evropa" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="273,93,260.6,269"  Click="Button_Europe">
+                <Button Content="   Evropa" AllowDrop="True" Drop="ContinentDrop" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="273,93,260.6,269"  Click="Button_Europe">
                     <ToolTipService.ToolTip>
-                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                        <TextBlock FontSize="16" Text="Uđite u pregled Evrope da biste preneli resurse na mapu"/>
                     </ToolTipService.ToolTip>
                 </Button>
-                <Button Content=" S. Amerika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="46,93,487.6,269"  Click="Button_N_America">
+                <Button Content=" S. Amerika" AllowDrop="True" Drop="ContinentDrop" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="46,93,487.6,269"  Click="Button_N_America">
                     <ToolTipService.ToolTip>
-                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                        <TextBlock FontSize="16" Text="Uđite u pregled Severne Amerike da biste preneli resurse na mapu"/>
                     </ToolTipService.ToolTip>
                 </Button>
-                <Button Content="  J. Amerika" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="112,230,421.6,132"  Click="Button_S_America">
+                <Button Content="  J. Amerika" AllowDrop="True" Drop="ContinentDrop" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="112,230,421.6,132"  Click="Button_S_America">
                     <ToolTipService.ToolTip>
-                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                        <TextBlock FontSize="16" Text="Uđite u pregled Južne Amerike da biste preneli resurse na mapu"/>
                     </ToolTipService.ToolTip>
                 </Button>
-                <Button Content=" Australija" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="507,266,26.6,96"  Click="Button_Oceania">
+                <Button Content=" Australija" AllowDrop="True" Drop="ContinentDrop" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="507,266,26.6,96"  Click="Button_Oceania">
                     <ToolTipService.ToolTip>
-                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                        <TextBlock FontSize="16" Text="Uđite u pregled Australije da biste preneli resurse na mapu"/>
                     </ToolTipService.ToolTip>
                 </Button>
-                <Button Content="  Azija" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="419,105,114.6,257"  Click="Button_Asia">
+                <Button Content="  Azija" AllowDrop="True" Drop="ContinentDrop" Style="{StaticResource ResourceKey=ContinentStyle}" Margin="419,105,114.6,257"  Click="Button_Asia">
                     <ToolTipService.ToolTip>
-                        <TextBlock FontSize="16" Text="Uđite u pregled kontinenta da biste preneli resurse na mapu"/>
+                        <TextBlock FontSize="16" Text="Uđite u pregled Azije da biste preneli resurse na mapu"/>
                     </ToolTipService.ToolTip>
                 </Button>
             </Grid>

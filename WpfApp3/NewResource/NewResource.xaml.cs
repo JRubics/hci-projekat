@@ -34,72 +34,79 @@ namespace WpfApp3.NewResource
         public bool Oznakaenabled = true;
         public static int ErrorCounter = 0;
         public NewResource(Res r,String a) {
-            s = a;
-            Oznakaenabled = false;
 
-            InitializeComponent( );
-            DataContext = this;
-            b_potvrdi.IsEnabled = true;
-            tboznaka.IsEnabled = false;
+            try {
+                s = a;
+                Oznakaenabled = false;
 
-            Ime = r.ime;
-            Oznaka = r.oznaka;
+                InitializeComponent( );
+                DataContext = this;
+                b_potvrdi.IsEnabled = true;
+                tboznaka.IsEnabled = false;
 
-            Opis = r.opis;
+                Ime = r.ime;
+                Oznaka = r.oznaka;
 
-            TipoviCombo = new ObservableCollection<string>( );
-            for (int i = 0; i < MainWindow.Typesc.Len(); i++) {
-                TipoviCombo.Add(MainWindow.Typesc.GetTypeAtI(i).oznaka);
-            }
-            Tip = r.tip;
+                Opis = r.opis;
 
-            FrekvCombo = new ObservableCollection<string>( );
-            foreach (Frekvencija f in Enum.GetValues(typeof(Frekvencija))) {
-                if (Enum.GetName(typeof(Frekvencija), f) == "END") {
-                    break;
+                TipoviCombo = new ObservableCollection<string>( );
+                for (int i = 0; i < MainWindow.Typesc.Len( ); i++) {
+                    TipoviCombo.Add(MainWindow.Typesc.GetTypeAtI(i).oznaka);
                 }
-                FrekvCombo.Add(Enum.GetName(typeof(Frekvencija), f));
-            }
-            Frekvencija = r.frekvencija;
+                Tip = r.tip;
 
-            Ikonica = r.ikonica;
-            IkonicaLabel = r.ikonica;
-            Obnovljiv = r.obnovljiv;
-            StrateskiVazan = r.strateskiVazan;
-            Eksploatisanje = r.eksploatisanje;
-
-            MeraCombo = new ObservableCollection<string>( );
-            foreach (Mere m in Enum.GetValues(typeof(Mere))) {
-                if (Enum.GetName(typeof(Mere), m) == "END") {
-                    break;
-                }
-                MeraCombo.Add(Enum.GetName(typeof(Mere), m));
-            }
-            Mera = r.mera;
-
-            Cena = r.cena;
-            Datum = r.datum;
-            items = new ObservableCollection<Item>( );
-            for (int i = 0; i < MainWindow.Tags.Len( ); i++) {
-                Item it = new Item(MainWindow.Tags.GetTagAtI(i).oznaka, (Color)ColorConverter.ConvertFromString(MainWindow.Tags.GetTagAtI(i).boja), MainWindow.Tags.GetTagAtI(i).opis);
-
-                for(int j = 0; j < r.etikete.Count; j++) {
-                    if (r.etikete.ElementAt(j).oznaka == it.TipOzn) {
-                        it.IsChacked = true;
+                FrekvCombo = new ObservableCollection<string>( );
+                foreach (Frekvencija f in Enum.GetValues(typeof(Frekvencija))) {
+                    if (Enum.GetName(typeof(Frekvencija), f) == "END") {
                         break;
                     }
+                    FrekvCombo.Add(Enum.GetName(typeof(Frekvencija), f));
                 }
-                items.Add(it);
-            }
-            if (r.etikete.Count > 0) {
-                EExists = "Etikete:";
-            } else {
-                EExists = " ";
-            }
+                Frekvencija = r.frekvencija;
 
-            INotifyPropertyChanged win = DataContext as INotifyPropertyChanged;
-            if (win != null)
-                win.PropertyChanged += new PropertyChangedEventHandler(validate);
+                Ikonica = r.ikonica;
+                IkonicaLabel = r.ikonica;
+                Obnovljiv = r.obnovljiv;
+                StrateskiVazan = r.strateskiVazan;
+                Eksploatisanje = r.eksploatisanje;
+
+                MeraCombo = new ObservableCollection<string>( );
+                foreach (Mere m in Enum.GetValues(typeof(Mere))) {
+                    if (Enum.GetName(typeof(Mere), m) == "END") {
+                        break;
+                    }
+                    MeraCombo.Add(Enum.GetName(typeof(Mere), m));
+                }
+                Mera = r.mera;
+
+                Cena = r.cena;
+                Datum = r.datum;
+                items = new ObservableCollection<Item>( );
+                for (int i = 0; i < MainWindow.Tags.Len( ); i++) {
+                    Item it = new Item(MainWindow.Tags.GetTagAtI(i).oznaka, (Color)ColorConverter.ConvertFromString(MainWindow.Tags.GetTagAtI(i).boja), MainWindow.Tags.GetTagAtI(i).opis);
+
+                    for (int j = 0; j < r.etikete.Count; j++) {
+                        if (r.etikete.ElementAt(j).oznaka == it.TipOzn) {
+                            it.IsChacked = true;
+                            break;
+                        }
+                    }
+                    items.Add(it);
+                }
+                if (r.etikete.Count > 0) {
+                    EExists = "Etikete:";
+                } else {
+                    EExists = " ";
+                }
+
+                INotifyPropertyChanged win = DataContext as INotifyPropertyChanged;
+                if (win != null)
+                    win.PropertyChanged += new PropertyChangedEventHandler(validate);
+            } catch {
+                var s = new messageBox.Window1("Ne možete menjati resurs koji je obrisan");
+                s.ShowDialog( );
+                return;
+            }
         }
 
         private void validate(object sender, PropertyChangedEventArgs e)

@@ -45,11 +45,11 @@ namespace WpfApp3
         private static Panel pom = null;
         public MainWindow()
         {
-            //var s = new login.Window1( );
-            //s.ShowDialog( );
+            WV = Visibility.Hidden;
+            var s = new login.Window1( );
+            s.ShowDialog( );
             InitializeComponent( );
             this.DataContext = this;
-            //Test1 = "AFRIKA";
             Img1 = "resources/world.png";
             for (int i = 0; i < resources.Len( ); i++) {
                 System.Windows.Controls.Image newImg = new Image( );
@@ -189,30 +189,34 @@ namespace WpfApp3
         }
 
         public static ToolTip makeTooltip(Res r) {
-            ToolTip t = new ToolTip( );
-            StackPanel stack = new StackPanel( );
-            stack.Orientation = Orientation.Vertical;
+            try {
+                ToolTip t = new ToolTip( );
+                StackPanel stack = new StackPanel( );
+                stack.Orientation = Orientation.Vertical;
 
-            StackPanel stack1 = new StackPanel( );
-            stack1.Orientation = Orientation.Horizontal;
-            stack1.Children.Add(new Label( ) { Content = "Oznaka: " + r.oznaka, FontWeight = FontWeights.Bold, FontSize = 18 });
+                StackPanel stack1 = new StackPanel( );
+                stack1.Orientation = Orientation.Horizontal;
+                stack1.Children.Add(new Label( ) { Content = "Oznaka: " + r.oznaka, FontWeight = FontWeights.Bold, FontSize = 18 });
 
-            StackPanel stack2 = new StackPanel( );
-            stack2.Orientation = Orientation.Horizontal;
-            stack2.Children.Add(new Label( ) { Content = "Etikete: ", FontWeight = FontWeights.Bold, FontSize = 18 });
-            for (int k = 0; k < r.etikete.Count; k++) {
-                stack2.Children.Add(new Label( ) { Content = r.etikete[k].oznaka, FontWeight = FontWeights.Bold, FontSize = 18, Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString((r.etikete[k]).boja ))});
-            }
-            if (r.etikete.Count == 0) {
-                stack2 = new StackPanel( );
+                StackPanel stack2 = new StackPanel( );
                 stack2.Orientation = Orientation.Horizontal;
-                stack2.Children.Add(new Label( ) { Content = "Nema etikete", FontWeight = FontWeights.Bold, FontSize = 18 });
+                stack2.Children.Add(new Label( ) { Content = "Etikete: ", FontWeight = FontWeights.Bold, FontSize = 18 });
+                for (int k = 0; k < r.etikete.Count; k++) {
+                    stack2.Children.Add(new Label( ) { Content = r.etikete[k].oznaka, FontWeight = FontWeights.Bold, FontSize = 18, Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString((r.etikete[k]).boja)) });
+                }
+                if (r.etikete.Count == 0) {
+                    stack2 = new StackPanel( );
+                    stack2.Orientation = Orientation.Horizontal;
+                    stack2.Children.Add(new Label( ) { Content = "Nema etikete", FontWeight = FontWeights.Bold, FontSize = 18 });
+                }
+                stack.Children.Add(stack1);
+                stack.Children.Add(stack2);
+                t.Content = stack;
+                t.FontSize = 20;
+                return t;
+            } catch {
+                return null;
             }
-            stack.Children.Add(stack1);
-            stack.Children.Add(stack2);
-            t.Content = stack;
-            t.FontSize = 20;
-            return t;
         }
 
         #region NotifyProperties
@@ -228,6 +232,20 @@ namespace WpfApp3
                 }
             }
         }
+
+        private Visibility _wv;
+        public Visibility WV {
+            get {
+                return _wv;
+            }
+            set {
+                if (value != _wv) {
+                    _wv = value;
+                    OnPropertyChanged("WV");
+                }
+            }
+        }
+
         private string _img1;
         public string Img1 {
             get {
@@ -295,6 +313,7 @@ namespace WpfApp3
 
         private void Button_Africa(object sender, RoutedEventArgs e)
         {
+            WV = Visibility.Visible;
             WorldGrid.Visibility = Visibility.Collapsed;
             AfricaGrid.Visibility = Visibility.Visible;
             canvas = AfricaGrid;
@@ -351,6 +370,7 @@ namespace WpfApp3
 
         private void Button_Europe(object sender, RoutedEventArgs e)
         {
+            WV = Visibility.Visible;
             WorldGrid.Visibility = Visibility.Collapsed;
             EuropeGrid.Visibility = Visibility.Visible;
             canvas = EuropeGrid;
@@ -374,6 +394,7 @@ namespace WpfApp3
         }
         private void Button_N_America(object sender, RoutedEventArgs e)
         {
+            WV = Visibility.Visible;
             WorldGrid.Visibility = Visibility.Collapsed;
             NAmericaGrid.Visibility = Visibility.Visible;
             canvas = NAmericaGrid;
@@ -397,6 +418,7 @@ namespace WpfApp3
         }
         private void Button_S_America(object sender, RoutedEventArgs e)
         {
+            WV = Visibility.Visible;
             WorldGrid.Visibility = Visibility.Collapsed;
             SAmericaGrid.Visibility = Visibility.Visible;
             canvas = SAmericaGrid;
@@ -420,6 +442,7 @@ namespace WpfApp3
         }
         private void Button_Asia(object sender, RoutedEventArgs e)
         {
+            WV = Visibility.Visible;
             WorldGrid.Visibility = Visibility.Collapsed;
             AsiaGrid.Visibility = Visibility.Visible;
             canvas = AsiaGrid;
@@ -443,6 +466,7 @@ namespace WpfApp3
         }
         private void Button_Oceania(object sender, RoutedEventArgs e)
         {
+            WV = Visibility.Visible;
             WorldGrid.Visibility = Visibility.Collapsed;
             OceaniaGrid.Visibility = Visibility.Visible;
             canvas = OceaniaGrid;
@@ -467,6 +491,7 @@ namespace WpfApp3
 
         private void Button_Back(object sender, RoutedEventArgs e)
         {
+            WV = Visibility.Hidden;
             canvas.Visibility = Visibility.Collapsed;
             WorldGrid.Visibility = Visibility.Visible;
             serialize_canvas(canvas);
@@ -718,6 +743,11 @@ namespace WpfApp3
             if (!e.Data.GetDataPresent("myFormat") || sender == e.Source) {
                 e.Effects = DragDropEffects.None;
             }
+        }
+
+        private void ContinentDrop(object sender, DragEventArgs e) {
+            var s = new messageBox.Window1("Uđite u pregled kontinenta da biste preneli resurse na mapu");
+            s.ShowDialog( );
         }
 
         private void Image_Drop(object sender, DragEventArgs e)
